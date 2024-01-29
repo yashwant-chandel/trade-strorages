@@ -4,12 +4,13 @@
                  <div class="card card-bordered h-100">
                      <div class="card-inner">
                          <div class="card-head d-flex justify-content-between">
-                             <h5 class="card-title">Storage Types</h5>
+                             <h5 class="card-title">Unit Sizes</h5>
                              <button class="remove btn btn-link" ><i class="fas fa-times"></i></button>
                          </div>
-                         <form action="{{ url('admin-dashboard/categorySubmit') }}" method="POST">
+                         <form action="{{ url('admin-dashboard/sizeSubmit') }}" method="POST">
                             @csrf
                             <input type="hidden" name="id" value="">
+                            <input type="hidden" name="category_id" value="{{ $category->id ?? '' }}">
                              <div class="form-group">
                                  <label class="form-label" for="name">Name</label>
                                  <div class="form-control-wrap">
@@ -20,11 +21,11 @@
 		                          @enderror
                              </div>
                              <div class="form-group">
-                                 <label class="form-label" for="icon">Icon</label>
+                                 <label class="form-label" for="icon">Description</label>
                                  <div class="form-control-wrap">
-                                     <input type="text" name="icon" class="form-control" id="icon" value="">
+                                     <textarea type="text" name="description" class="form-control" id="description" value=""></textarea>
                                  </div>
-                                 @error('name')
+                                 @error('description')
 				                                <span class="text text-danger">{{ $message }}</span>
 		                          @enderror
                              </div>
@@ -54,7 +55,7 @@
                     <div class="nk-block-head">
                         <div class="nk-block-head-content d-flex justify-content-between">
                             <h4 class="nk-block-title">
-                                Storage Types List
+                                Unit Sizes List
                             </h4>
                             <button class="btn btn-primary" id="addnewsecitonbutton">Add new</button>
                         </div>
@@ -71,7 +72,7 @@
                            </th>
                           <th class="tb-tnx-info text-center">
                                <span class="tb-tnx-desc d-none d-sm-inline-block">
-                                   <span>Icon</span>
+                                   <span>description</span>
                                </span>
                            </th>
                           
@@ -82,19 +83,19 @@
                    </thead>
                    <tbody>
                     <?php $count = 1 ?>
-                   @foreach($categories as $cat)
+                   @foreach($sizes as $size)
                        <tr class="tb-tnx-item">
                            <td class="tb-tnx-id text-center">
                                <a href="#"><span>{{ $count++ }}</span></a>
                            </td>
                            <td class="tb-tnx-info text-center">
                                <div class="tb-tnx-desc">
-                                   <span class="title">{{ $cat->name ?? '' }}</span>
+                                   <span class="title">{{ $size->name ?? '' }}</span>
                                </div>
                            </td>
                             <td class="tb-tnx-info text-center">
                                <div class="tb-tnx-desc">
-                                   <span class="title">{{ $cat->icon ?? '' }}</span>
+                                   <span class="title">{{ $size->description ?? '' }}</span>
                                </div>
                            </td> 
                            <td class="tb-tnx-amount is-alt text-center">
@@ -103,10 +104,8 @@
                                 <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown" data-offset="-8,0"><em class="icon ni ni-more-h"></em></a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-xs">
                                     <ul class="link-list-plain">
-                                        <li><a href="{{ url('admin-dashboard/sizes/') }}/{{ $cat->slug ?? '' }}">sizes</a></li>
-                                        <li><a href="{{ url('admin-dashboard/features/') }}/{{ $cat->slug ?? '' }}">Features</a></li>
-                                        <li><a class="edit-btn" cat-name="{{ $cat->name ?? '' }}" cat-slug="{{ $cat->slug ?? '' }}" cat-id="{{ $cat->id ?? '' }}" cat-icon="{{ $cat->icon ?? '' }}" href="{{ url('/admin-dashboard/branches/') }}/">Edit</a></li>
-                                        <li><a href="{{ url('admin-dashboard/category/delete/') }}/{{ $cat->id ?? '' }}">delete</a></li>
+                                        <li><a class="edit-btn" size-name="{{ $size->name ?? '' }}" size-description="{{ $size->description ?? '' }}" size-id="{{ $size->id ?? '' }}" size-slug="{{ $size->slug ?? '' }}" href="{{ url('/admin-dashboard/size/') }}/">Edit</a></li>
+                                        <li><a href="{{ url('admin-dashboard/sizes/delete/') }}/{{ $size->id ?? '' }}">delete</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -144,16 +143,16 @@
             $('.edit-btn').on('click',function(e){
                 e.preventDefault();
                 $('div#add-section').removeClass('d-none');
-                name = $(this).attr('cat-name');
-                slug = $(this).attr('cat-slug');
-                id = $(this).attr('cat-id');
-                icon = $(this).attr('cat-icon');
+                name = $(this).attr('size-name');
+                slug = $(this).attr('size-slug');
+                id = $(this).attr('size-id');
+                icon = $(this).attr('size-description');
                 // console.log(name+slug+id+icon);
            
                 $('input[name="name"]').val(name);
                 $('input[name="slug"]').val(slug);
                 $('input[name="id"]').val(id);
-                $('input[name="icon"]').val(icon);
+                $('textarea[name="description"]').html(icon);
 
                 $('.savebtn').hide();
                 $('.updatediv').show();
@@ -162,7 +161,7 @@
                 $('input[name="name"]').val('');
                 $('input[name="slug"]').val('');
                 $('input[name="id"]').val('');
-                $('input[name="icon"]').val('');
+                $('textarea[name="description"]').html('');
 
                 $('.savebtn').show();
                 $('.updatediv').hide();
@@ -175,8 +174,7 @@
                 $('input[name="name"]').val('');
                 $('input[name="slug"]').val('');
                 $('input[name="id"]').val('');
-                $('input[name="icon"]').val('');
+                $('textarea[name="description"]').html('');
             })
         </script>
-
 @endsection

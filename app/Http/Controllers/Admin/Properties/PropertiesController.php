@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\Propertie;
 use App\Models\Media;
 use App\Models\Address;
+use App\Models\Category;
+use App\Models\Sizes;
+use App\Models\Feature;
+use App\Models\Storage;
+use File;
+
 
 class PropertiesController extends Controller
 {
@@ -14,22 +20,151 @@ class PropertiesController extends Controller
         return view('Admin.properties.addproperty');
     }
     public function submitProcc(Request $request){
-        // $request->validate([
-        //     'address' => 'required',
-        //     'city' => 'required',
-        //     'state' => 'required',
-        //     'pincode' => 'required',
-        //     'url' => 'required',
-        //     'featured_image' => 'required',
-        //     'gallery_images' => 'required',
-        // ]);
-        echo '<pre>';
-        print_r($request->all());
-        echo '</pre>';
+        $request->validate([
+            'address' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'pincode' => 'required',
+            'url' => 'required',
+            'featured_image' => 'required',
+            'gallery_images' => 'required',
+        ]);
+        // echo '<pre>';
+        // print_r($request->all());
+        // echo '</pre>';
+
+        $address = new Address;
+        $address->address = $request->address;
+        $address->city = $request->city;
+        $address->state = $request->state;
+        $address->pincode = $request->pincode;
+        $address->status = 1;
+        $address->save();
+
+        $external_features = [];
+            for($i = 0; $i < count($request->title); $i++){
+                $data = [$request->title[$i] => $request->description[$i]];
+                array_push($external_features,$data);
+            }
+        $stripe = new \Stripe\StripeClient( env('STRIPE_SECRET_KEY') );
+        // Create product //////////////////////////////////
+        $product_name_stripe = $request->address.'-'.$request->city.'-'.$request->state.'-'.$request->pincode;
+        $productstripe = $stripe->products->create([
+            'name' => $product_name_stripe,
+            'description' => '<></>',
+        ]);
+        $propertie = new Propertie;
+        $propertie->stripe_product_id = $productstripe->id;
+        $propertie->address_id = $address->id;
+        $propertie->map_url = $request->url;
+        $propertie->external_option = json_encode($external_features);
+        $propertie->status = 1;
+        $propertie->save();
+
+        if($request->hasFile('featured_image')){
+            $file = $request->file('featured_image');
+            $name = 'Img'.time().rand(1,100).'.'.$file->extension();
+            $file->move(public_path('property_images'),$name);
+            $media = new Media;
+            $media->image_name = $name;
+            $media->image_path = 'property_images/'.$name;
+            $media->featured_image = 1;
+            $media->property_id = $propertie->id;
+            $media->status = 1;
+            $media->save();
+        }
+        if($request->hasFile('gallery_images')){
+            foreach($request->file('gallery_images') as $file){
+                $name = 'Img'.time().rand(1,100).'.'.$file->extension();
+                $file->move(public_path('property_images'),$name);
+
+                $media = new Media;
+                $media->image_name = $name;
+                $media->image_path = 'property_images/'.$name;
+                $media->featured_image = 1;
+                $media->property_id = $propertie->id;
+                $media->status = 1;
+                $media->save();
+            }
+        }
+        return redirect()->back()->with('success','Successfully saved new propertie');
 
     }
     public function list(){
+        $properties = Propertie::all();
 
-        return view('Admin.properties.propertylist');
+        return view('Admin.properties.propertylist',compact('properties'));
+    }
+    
+    public function view($id){
+            
+        $propertie_data = Propertie::find($id);
+        $categories = Category::all();
+        
+        return view('Admin.properties.propertyview',compact('propertie_data','categories'));
+    }
+    public function delete($id){
+
+        $propertie = Propertie::find($id);
+        if(!$propertie){
+            abort(404);
+        }
+        $address = Address::find($propertie->address_id);
+        $address->delete();
+
+        $media = Media::where('property_id',$propertie->id)->get();
+        foreach($media as $m){
+            $image = Media::find($m->id);
+            $path = public_path($m->image_path);
+            if(File::exits($path)){
+                File::delete($path);
+            }
+        }
+        $propertie->delete();
+        return redirect()->back()->with('success','Successfully deleted properties');
+    }
+    public function getSizesAndFeatures(Request $request){
+
+        $sizes = Sizes::where('category_id',$request->category_id)->get();
+        $features = Feature::where('category_id',$request->category_id)->get();
+        return [$sizes,$features];
+    }
+    public function storageSubmit(Request $request){
+      
+        $request->validate([
+            'title' => 'required',
+            'category' => 'required',
+            'sizes' => 'required',
+            'features'=> 'required',
+            'regular_price' => 'required',
+            'discount_price' => 'required'
+        ]);
+        $property = Propertie::find($request->propertie_id);
+
+
+        $storage = new Storage;
+        $storage->title = $request->title;
+        $storage->category_id = $request->category;
+        $storage->size_id = $request->sizes;
+        $storage->features = $request->features;
+        $storage->regular_price = $request->regular_price;
+        $storage->discount_price = $request->discount_price;
+        $storage->propertie_id = $request->propertie_id;
+
+        $stripe = new \Stripe\StripeClient( env('STRIPE_SECRET_KEY') );
+        $price = $stripe->prices->create(
+            [
+            'product' => $property->stripe_product_id,
+            'unit_amount' => $request->discount_price * 100,
+            'currency' => 'USD',
+            'recurring' => [
+                'interval' => 'month', // product price charge interval 
+            ],
+            ]
+        );
+        $storage->stripe_price_id = $price->id;
+        $storage->save();
+        return redirect()->back()->with('success','Successfully saved storage');
+
     }
 }

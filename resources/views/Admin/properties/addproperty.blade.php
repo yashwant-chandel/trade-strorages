@@ -140,7 +140,7 @@
                     
                 </div>
                 <hr>
-                <div class="row g-3 align-center">
+                <!-- <div class="row g-3 align-center">
                     <div class="col-lg-5">
                         <div class="form-group">
                             <label class="form-label">Storage facility feature</label>
@@ -155,7 +155,7 @@
                         </div>
                     </div>
                 </div>
-                <hr>
+                <hr> -->
                 <div class="row g-3 align-center">
                     <div class="col-lg-5">
                         <div class="form-group">

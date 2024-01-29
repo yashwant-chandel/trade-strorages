@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link id="skin-default" rel="stylesheet" href="{{ asset('admin-theme/assets/css/theme.css?ver=3.1.2') }}"> 
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
 <body class="nk-body bg-lighter npc-general has-sidebar ">
@@ -60,23 +60,26 @@
                                         <li class="nk-menu-item">
                                             <a href="{{ url('/admin-dashboard/properties/add') }}" class="nk-menu-link"><span class="nk-menu-text">Add Properties</span></a>
                                         </li>
-                                        <li class="nk-menu-item">
-                                            <a href="{{ url('/admin-dashboard/properties/catgories') }}" class="nk-menu-link"><span class="nk-menu-text">Storage Types</span></a>
-                                        </li>
+                                       
                                     </ul>
                                 </li> 
-                                <!-- <li class="nk-menu-item has-sub">
+                                <li class="nk-menu-item has-sub">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
                                         <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
-                                        <span class="nk-menu-text">User Manage</span>
+                                        <span class="nk-menu-text">Properties features</span>
                                     </a>
                                     <ul class="nk-menu-sub">
                                         <li class="nk-menu-item">
-                                            <a href="{{url('/admin-dashboard/users-list')}}" class="nk-menu-link"><span class="nk-menu-text">User List - Designer</span></a>
+                                            <a href="{{ url('/admin-dashboard/properties/catgories') }}" class="nk-menu-link"><span class="nk-menu-text">Storage Types</span></a>
                                         </li>
-
+                                        <!-- <li class="nk-menu-item">
+                                            <a href="{{url('/admin-dashboard/sizes')}}" class="nk-menu-link"><span class="nk-menu-text">Sizes</span></a>
+                                        </li>
+                                        <li class="nk-menu-item">
+                                            <a href="{{url('/admin-dashboard/features')}}" class="nk-menu-link"><span class="nk-menu-text">Features</span></a>
+                                        </li> -->
                                     </ul>
-                                </li> -->
+                                </li>
                                 <!-- <li class="nk-menu-item has-sub">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
                                         <span class="nk-menu-icon"><i class="fas fa-network-wired"></i></span>
