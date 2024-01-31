@@ -1,5 +1,6 @@
 @extends('admin_layout/index')
 @section('content')
+
 <div class="col-lg-6 d-none py-3" id="add-section">
                  <div class="card card-bordered h-100">
                      <div class="card-inner">
@@ -117,6 +118,8 @@
               
            </div>
   </div>
+
+
         @error('name')
             <script>
                 $('div#add-section').removeClass('d-none');

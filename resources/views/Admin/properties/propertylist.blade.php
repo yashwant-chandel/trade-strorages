@@ -27,14 +27,14 @@
                                                             <ul class="nk-tb-actions gx-1 my-n1">
                                                                 <li class="me-n1">
                                                                     <div class="dropdown">
-                                                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                                        <!-- <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                         <div class="dropdown-menu dropdown-menu-end">
                                                                             <ul class="link-list-opt no-bdr">
                                                                                 <li><a href="#"><em class="icon ni ni-edit"></em><span>Edit</span></a></li>
                                                                                 <li><a href="#"><em class="icon ni ni-trash"></em><span>Remove</span></a></li>
                                                                                 <li><a href="#"><em class="icon ni ni-bar-c"></em><span>View</span></a></li>
                                                                             </ul>
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>
                                                                 </li>
                                                             </ul>
@@ -61,8 +61,8 @@
                                                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                         <div class="dropdown-menu dropdown-menu-end">
                                                                             <ul class="link-list-opt no-bdr">
-                                                                                <li><a href="#"><em class="icon ni ni-edit"></em><span>Edit Propertie</span></a></li>
-                                                                                <li><a href="{{ url('admin-dashboard/properties/delete/'.$propertie->id) }}"><em class="icon ni ni-activity-round"></em><span>Remove Propertie</span></a></li>
+                                                                                <li><a href="{{ url('admin-dashboard/properties/edit/'.$propertie->id) }}"><em class="icon ni ni-edit"></em><span>Edit Propertie</span></a></li>
+                                                                                <li><a class="delete" link="{{ url('admin-dashboard/properties/delete/'.$propertie->id) }}"><em class="icon ni ni-activity-round"></em><span>Remove Propertie</span></a></li>
                                                                                 <li><a href="{{ url('admin-dashboard/properties/view/'.$propertie->id) }}"><em class="icon ni ni-eye"></em><span>View Propertie</span></a></li>
                                                                             </ul>
                                                                         </div>
@@ -81,5 +81,22 @@
                             </div>
                         </div>
                     </div>
-
+<script>
+$('.delete').on('click',function(){
+    link = $(this).attr('link');
+    console.log(link);
+    Swal.fire({
+                title: 'Please Login',
+                text: "Are you sure to want to delete this property !",
+                icon: 'info',
+                showCancelButton: true,
+                cancelButtonText: 'No',
+                confirmButtonText: 'Yes',
+                }).then((result) => {
+                if (result.isConfirmed) {
+                  location.href = link;
+                }
+            })
+})
+</script>
 @endsection

@@ -60,10 +60,12 @@
                                         <li class="nk-menu-item">
                                             <a href="{{ url('/admin-dashboard/properties/add') }}" class="nk-menu-link"><span class="nk-menu-text">Add Properties</span></a>
                                         </li>
-                                       
+                                        <li class="nk-menu-item">
+                                            <a href="{{ url('/admin-dashboard/properties/catgories') }}" class="nk-menu-link"><span class="nk-menu-text">Storage Types</span></a>
+                                        </li>
                                     </ul>
                                 </li> 
-                                <li class="nk-menu-item has-sub">
+                              <!--  <li class="nk-menu-item has-sub">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
                                         <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
                                         <span class="nk-menu-text">Properties features</span>
@@ -72,14 +74,14 @@
                                         <li class="nk-menu-item">
                                             <a href="{{ url('/admin-dashboard/properties/catgories') }}" class="nk-menu-link"><span class="nk-menu-text">Storage Types</span></a>
                                         </li>
-                                        <!-- <li class="nk-menu-item">
+                                         <li class="nk-menu-item">
                                             <a href="{{url('/admin-dashboard/sizes')}}" class="nk-menu-link"><span class="nk-menu-text">Sizes</span></a>
                                         </li>
                                         <li class="nk-menu-item">
                                             <a href="{{url('/admin-dashboard/features')}}" class="nk-menu-link"><span class="nk-menu-text">Features</span></a>
-                                        </li> -->
+                                        </li> 
                                     </ul>
-                                </li>
+                                </li>-->
                                 <!-- <li class="nk-menu-item has-sub">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
                                         <span class="nk-menu-icon"><i class="fas fa-network-wired"></i></span>

@@ -15,4 +15,7 @@ class Propertie extends Model
     public function address(){
         return $this->hasOne(Address::class,'id','address_id');
     }
+    public function storages(){
+        return $this->hasMany(Storage::class,'propertie_id','id');
+    }
 }

@@ -21,6 +21,15 @@
 		                          @enderror
                              </div>
                              <div class="form-group">
+                                 <label class="form-label" for="icon">Icon</label>
+                                 <div class="form-control-wrap">
+                                     <input type="text" name="icon" class="form-control" id="icon" value="">
+                                 </div>
+                                 @error('icon')
+				                                <span class="text text-danger">{{ $message }}</span>
+		                          @enderror
+                             </div>
+                             <div class="form-group">
                                  <!-- <label class="form-label" for="slug">Slug</label> -->
                                  <div class="form-control-wrap">
                                      <input type="hidden" name="slug" class="form-control" id="slug" value="">
@@ -61,7 +70,11 @@
                                    <span>Name</span>
                                </span>
                            </th>
-                          
+                           <th class="tb-tnx-info text-center">
+                               <span class="tb-tnx-desc d-none d-sm-inline-block">
+                                   <span>Icon</span>
+                               </span>
+                           </th>
                            <th class="tb-tnx-action text-center">
                                <span>Action</span>
                            </th>
@@ -79,13 +92,18 @@
                                    <span class="title">{{ $feature->name ?? '' }}</span>
                                </div>
                            </td>
+                           <td class="tb-tnx-info text-center">
+                               <div class="tb-tnx-desc">
+                                   <span class="title">{{ $feature->icon ?? '' }}</span>
+                               </div>
+                           </td>
                            <td class="tb-tnx-amount is-alt text-center">
                          
                             <div class="dropdown">
                                 <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown" data-offset="-8,0"><em class="icon ni ni-more-h"></em></a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-xs">
                                     <ul class="link-list-plain">
-                                        <li><a class="edit-btn" feature-name="{{ $feature->name ?? '' }}" feature-slug="{{ $feature->slug ?? '' }}" feature-id="{{ $feature->id ?? '' }}" href="{{ url('/admin-dashboard/branches/') }}/">Edit</a></li>
+                                        <li><a class="edit-btn" feature-name="{{ $feature->name ?? '' }}" feature-slug="{{ $feature->slug ?? '' }}" feature-id="{{ $feature->id ?? '' }}" feature-icon="{{ $feature->icon ?? '' }}" href="{{ url('/admin-dashboard/branches/') }}/">Edit</a></li>
                                         <li><a href="{{ url('admin-dashboard/feature/delete/') }}/{{ $feature->id ?? '' }}">delete</a></li>
                                     </ul>
                                 </div>
@@ -127,11 +145,13 @@
                 name = $(this).attr('feature-name');
                 slug = $(this).attr('feature-slug');
                 id = $(this).attr('feature-id');
+                icon = $(this).attr('feature-icon');
                 // console.log(name+slug+id+icon);
            
                 $('input[name="name"]').val(name);
                 $('input[name="slug"]').val(slug);
                 $('input[name="id"]').val(id);
+                $('input[name="icon"]').val(icon);
 
                 $('.savebtn').hide();
                 $('.updatediv').show();
@@ -140,6 +160,7 @@
                 $('input[name="name"]').val('');
                 $('input[name="slug"]').val('');
                 $('input[name="id"]').val('');
+                $('input[name="icon"]').val('');
 
                 $('.savebtn').show();
                 $('.updatediv').hide();
@@ -152,6 +173,7 @@
                 $('input[name="name"]').val('');
                 $('input[name="slug"]').val('');
                 $('input[name="id"]').val('');
+                $('input[name="icon"]').val('');
             })
         </script>
 

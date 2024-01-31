@@ -102,11 +102,13 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required',
             'slug' => 'required',
+            'icon' => 'required',
         ]);
         if($request->id){
             $feature = Feature::find($request->id);
             $feature->name = $request->name;
             $feature->slug = $request->slug;
+            $feature->icon = $request->icon;
             $feature->category_id = $request->category_id;
             $feature->status = 1;
             $feature->update();
@@ -115,6 +117,7 @@ class CategoryController extends Controller
             $feature = new Feature;
             $feature->name = $request->name;
             $feature->slug = $request->slug;
+            $feature->icon = $request->icon;
             $feature->category_id = $request->category_id;
             $feature->status = 1;
             $feature->save();

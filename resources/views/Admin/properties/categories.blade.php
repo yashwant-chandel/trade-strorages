@@ -24,7 +24,7 @@
                                  <div class="form-control-wrap">
                                      <input type="text" name="icon" class="form-control" id="icon" value="">
                                  </div>
-                                 @error('name')
+                                 @error('icon')
 				                                <span class="text text-danger">{{ $message }}</span>
 		                          @enderror
                              </div>
@@ -106,7 +106,7 @@
                                         <li><a href="{{ url('admin-dashboard/sizes/') }}/{{ $cat->slug ?? '' }}">sizes</a></li>
                                         <li><a href="{{ url('admin-dashboard/features/') }}/{{ $cat->slug ?? '' }}">Features</a></li>
                                         <li><a class="edit-btn" cat-name="{{ $cat->name ?? '' }}" cat-slug="{{ $cat->slug ?? '' }}" cat-id="{{ $cat->id ?? '' }}" cat-icon="{{ $cat->icon ?? '' }}" href="{{ url('/admin-dashboard/branches/') }}/">Edit</a></li>
-                                        <li><a href="{{ url('admin-dashboard/category/delete/') }}/{{ $cat->id ?? '' }}">delete</a></li>
+                                        <li><a class="delete-btn" link="{{ url('admin-dashboard/category/delete/') }}/{{ $cat->id ?? '' }}">delete</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -176,6 +176,23 @@
                 $('input[name="slug"]').val('');
                 $('input[name="id"]').val('');
                 $('input[name="icon"]').val('');
+            })
+        </script>
+        <script>
+            $('.delete-btn').on('click',function(){
+                link = $(this).attr('link');
+                Swal.fire({
+                title: 'Please Login',
+                text: "Are you sure to want to delete this property !",
+                icon: 'info',
+                showCancelButton: true,
+                cancelButtonText: 'No',
+                confirmButtonText: 'Yes',
+                }).then((result) => {
+                if (result.isConfirmed) {
+                  location.href = link;
+                }
+            })
             })
         </script>
 

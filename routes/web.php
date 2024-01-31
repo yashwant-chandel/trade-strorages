@@ -48,12 +48,19 @@ Route::get('/admin-dashboard/feature/delete/{id}',[CategoryController::class,'fe
 ////Property
 Route::get('admin-dashboard/properties',[PropertiesController::class,'list']);
 Route::get('admin-dashboard/properties/add',[PropertiesController::class,'index']);
+Route::get('admin-dashboard/properties/edit/{id}',[PropertiesController::class,'edit']);
 Route::post('admin-dashboard/properties/addProcc',[PropertiesController::class,'submitProcc']);
+Route::post('admin-dashboard/properties/updateProcc',[PropertiesController::class,'updateProcc']);
+Route::post('admin-dashboard/media/delete/',[PropertiesController::class,'deleteImages']);
 
 Route::get('admin-dashboard/properties/view/{id}',[PropertiesController::class,'view']);
 Route::get('admin-dashboard/properties/delete/{id}',[PropertiesController::class,'delete']);
 Route::post('admin-dashboard/getsizesandfeatures',[PropertiesController::class,'getSizesAndFeatures']);
 
+/////Storages
 Route::post('admin-dashboard/storage/submitProcc',[PropertiesController::class,'storageSubmit']);
+Route::post('admin-dashboard/storage/updateProcc',[PropertiesController::class,'storageUpdate']);
+Route::get('admin-dashboard/storage/delete/{id}',[PropertiesController::class,'storageDelete']);
+Route::get('admin-dashboard/storage/update/{id}',[PropertiesController::class,'updateStorage']);
 
 });

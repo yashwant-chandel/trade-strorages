@@ -2,7 +2,7 @@
 @section('content')
 <div class="nk-content ">
                     <div class="container">
-                        <div class="nk-content-inner">
+                        <div class="nk-content-inner mb-4">
                             <div class="nk-content-body">
                                 <div class="nk-block-head nk-block-head-sm">
                                     <div class="nk-block-between g-3">
@@ -10,10 +10,10 @@
                                             <h3 class="nk-block-title page-title">Propertie Details</h3>
                                             
                                         </div>
-                                        <div class="nk-block-head-content">
+                                        <!-- <div class="nk-block-head-content">
                                             <a href="html/product-list.html" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a>
                                             <a href="html/product-list.html" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div><!-- .nk-block-head -->
                                 <div class="nk-block">
@@ -82,8 +82,42 @@
                                 </div><!-- .nk-block -->
                             </div>
                         </div>
+                        <!-- start storage card -->
+                     
+                                @foreach($propertie_data->storages as $storages)
+                                    <div class="nk-block  ">
+                                        <div class="card card-bordered">
+                                            <div class="card-inner">
+                                                <div class="align-center d-flex justify-content-between flex-wrap flex-md-nowrap g-4 ">
+                                                    <div class="nk-block-image flex-shrink-0">
+                                                        <h5>{{ $storages->title ?? '' }}</h5>
+                                                        <?php $features = json_decode($storages->features); ?>
+                                                        @foreach($features as $feature)
+                                                        <?php $ft = App\Models\Feature::find($feature); ?>
+                                                        <p class="mb-0">{{ $ft->name ?? '' }}</p>
+                                                        @endforeach
+
+                                                    </div>
+                                                    <div class="nk-block-content">
+                                                        <div class="nk-block-content-head px-lg-4">
+                                                            <h5>{{ $storages->category->name ?? '' }}({{ $storages->size->name ?? '' }})</h5>
+                                                            <h4 >${{ $storages->discount_price ?? '' }}/month  <del class="text-soft">${{ $storages->regular_price ?? '' }}</del></h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="nk-block-content flex-shrink-0 ">
+                                                        <a href="{{ url('admin-dashboard/storage/update/'.$storages->id) }}" class="btn btn-lg btn-outline-primary edit-storage">Edit</a>
+                                                        <a link="{{ url('admin-dashboard/storage/delete/'.$storages->id) }}" class="btn btn-lg btn-outline-danger delete-storage">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </div><!-- .card-inner -->
+                                        </div><!-- .card -->
+                                    </div>
+                                    @endforeach
+                                <!-- end storage card -->
                     </div>
+                    
                 </div>
+                
                 <!-- Modal Content Code -->
                 <div class="modal fade zoom" tabindex="-1" id="modalDefault">
                     <div class="modal-dialog modal-xl" role="document">
@@ -290,6 +324,23 @@
                                 
 
                             } 
+                        })
+                    })
+
+                    $('.delete-storage').on('click',function(){
+                        link = $(this).attr('link');
+                        Swal.fire({
+                            title: 'Please Login',
+                            text: "Are you sure to want to delete this property !",
+                            icon: 'info',
+                            showCancelButton: true,
+                            cancelButtonText: 'No',
+                            confirmButtonText: 'Yes',
+                            }).then((result) => {
+                            if (result.isConfirmed) {
+                                // console.log(link);
+                                location.href = link;
+                            }
                         })
                     })
                 </script>

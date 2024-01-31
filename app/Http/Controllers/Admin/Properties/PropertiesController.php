@@ -12,12 +12,18 @@ use App\Models\Sizes;
 use App\Models\Feature;
 use App\Models\Storage;
 use File;
+use Stripe\Stripe;
+use Stripe\Price;
 
 
 class PropertiesController extends Controller
 {
     public function index(){
         return view('Admin.properties.addproperty');
+    }
+    public function edit($id){
+        $propertie = Propertie::find($id);
+        return view('Admin.properties.editproperty',compact('propertie'));
     }
     public function submitProcc(Request $request){
         $request->validate([
@@ -81,7 +87,7 @@ class PropertiesController extends Controller
                 $media = new Media;
                 $media->image_name = $name;
                 $media->image_path = 'property_images/'.$name;
-                $media->featured_image = 1;
+                $media->featured_image = 0;
                 $media->property_id = $propertie->id;
                 $media->status = 1;
                 $media->save();
@@ -89,6 +95,54 @@ class PropertiesController extends Controller
         }
         return redirect()->back()->with('success','Successfully saved new propertie');
 
+    }
+    public function updateProcc(Request $request){
+        
+        $propertie = Propertie::find($request->id);
+      
+        $address = Address::find($propertie->address_id);
+        $address->address = $request->address;
+        $address->city = $request->city;
+        $address->state = $request->state;
+        $address->pincode = $request->pincode;
+        $address->update();
+
+        $external_features = [];
+        for($i = 0; $i < count($request->title); $i++){
+            $data = [$request->title[$i] => $request->description[$i]];
+            array_push($external_features,$data);
+        }
+        $propertie->map_url = $request->url;
+        $propertie->external_option = json_encode($external_features);
+        $propertie->update();
+
+        if($request->hasFile('featured_image')){
+            $file = $request->file('featured_image');
+            $name = 'Img'.time().rand(1,100).'.'.$file->extension();
+            $file->move(public_path('property_images'),$name);
+            $media = Media::where([['property_id',$propertie->id],['featured_image',1]])->first();
+            $media->image_name = $name;
+            $media->image_path = 'property_images/'.$name;
+            $media->featured_image = 1;
+            $media->property_id = $propertie->id;
+            $media->status = 1;
+            $media->update();
+        }
+        if($request->hasFile('gallery_images')){
+            foreach($request->file('gallery_images') as $file){
+                $name = 'Img'.time().rand(1,100).'.'.$file->extension();
+                $file->move(public_path('property_images'),$name);
+
+                $media = new Media;
+                $media->image_name = $name;
+                $media->image_path = 'property_images/'.$name;
+                $media->featured_image = 0;
+                $media->property_id = $propertie->id;
+                $media->status = 1;
+                $media->save();
+            }
+        }
+        return redirect()->back()->with('success','Successfully updated property');
     }
     public function list(){
         $properties = Propertie::all();
@@ -116,7 +170,7 @@ class PropertiesController extends Controller
         foreach($media as $m){
             $image = Media::find($m->id);
             $path = public_path($m->image_path);
-            if(File::exits($path)){
+            if(File::exists($path)){
                 File::delete($path);
             }
         }
@@ -146,7 +200,7 @@ class PropertiesController extends Controller
         $storage->title = $request->title;
         $storage->category_id = $request->category;
         $storage->size_id = $request->sizes;
-        $storage->features = $request->features;
+        $storage->features = json_encode($request->features);
         $storage->regular_price = $request->regular_price;
         $storage->discount_price = $request->discount_price;
         $storage->propertie_id = $request->propertie_id;
@@ -166,5 +220,75 @@ class PropertiesController extends Controller
         $storage->save();
         return redirect()->back()->with('success','Successfully saved storage');
 
+    }
+    public function storageUpdate(Request $request){
+        
+        $request->validate([
+            'title' => 'required',
+            'category' => 'required',
+            'sizes' => 'required',
+            'features' => 'required',
+            'regular_price' => 'required',
+            'discount_price' => ' required',
+        ]);
+        $storage = Storage::find($request->id);
+        $propertie = Propertie::find($storage->propertie_id);
+ $stripe = new \Stripe\StripeClient( env('STRIPE_SECRET_KEY') );
+        $storage->title = $request->title;
+        $storage->category_id = $request->category;
+        $storage->size_id = $request->sizes;
+        $storage->features = json_encode($request->features);
+        $storage->regular_price = $request->regular_price;
+        if($storage->discount_price !== $request->discount_price){
+            $price =  $stripe->prices->update($storage->stripe_price_id, ['active' => false]);
+            $newprice = $stripe->prices->create(
+                [
+                'product' => $propertie->stripe_product_id,
+                'unit_amount' => $request->discount_price * 100,
+                'currency' => 'USD',
+                'recurring' => [
+                    'interval' => 'month', // product price charge interval 
+                ],
+                ]
+            );
+            $storage->discount_price = $request->discount_price;
+            $storage->stripe_price_id = $newprice->id;
+
+        }
+        $storage->update();
+        return redirect()->back()->with('success','Successfully updated your storage');
+
+    }
+    public function storageDelete($id){
+        $storage = Storage::find($id);
+        if(!$storage){
+            abort(404);
+        }
+        $stripe = new \Stripe\StripeClient( env('STRIPE_SECRET_KEY') );
+        $price =  $stripe->prices->update($storage->stripe_price_id, ['active' => false]);
+        $storage->delete();
+        return redirect()->back()->with('success','successfully deleted data');
+    }
+    public function updateStorage($id){
+        $storage = Storage::find($id);
+        $categories = Category::all();
+        $sizes = Sizes::where('category_id',$storage->category_id)->get();
+        $features = Feature::where('category_id',$storage->category_id)->get();
+     
+        if(!$storage){
+            abort(404);
+        }
+
+        return view('Admin.properties.updatestorages',compact('categories','storage','sizes','features'));
+    }
+    public function deleteImages(Request $request){
+        $media = Media::find($request->id);
+        $path = public_path($media->image_path);
+        
+        if(File::exists($path)){
+            File::delete($path);
+        }
+        $media->delete();
+        return response()->json(['success','Successfully deleted']);
     }
 }
