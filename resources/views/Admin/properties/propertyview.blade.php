@@ -57,6 +57,10 @@
                                                             </ul>
                                                             <div class="amount">(2 Reviews)</div>
                                                         </div><!-- .product-rating -->
+                                                        <div class="p-2">
+                                                            <a href="" data-bs-toggle="modal" data-bs-target="#modalFacility">See Storage Faciltiy Features</a><br>
+                                                            <a href="//{{ $propertie_data->map_url }}">Directions</a>
+                                                        </div>
                                                         <div class="product-excrept text-soft">
                                                             <?php  $data = json_decode($propertie_data->external_option);
                                                                 foreach($data as $d){
@@ -288,6 +292,36 @@
                                 </div><!-- .nk-block -->
                             </div>
                             <div class="modal-footer bg-light">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade zoom" tabindex="-1" id="modalFacility">
+                    <div class="modal-dialog modal-md" role="document">
+                        <div class="modal-content">
+                            <a href="#" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <em class="icon ni ni-cross"></em>
+                            </a>
+                            <div class="modal-header">
+                                <h5 class="modal-title">Storage Faciltiy Features</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="nk-block nk-block-md">
+                                    <?php $faciltiy_features = json_decode($propertie_data->storage_facility_features); 
+                                    
+                                    ?>
+                                     <ul class="nk-activity">
+                                        @foreach($faciltiy_features as $features)
+                                            @foreach($features as $key => $val)
+                                                <li class="nk-activity-item">
+                                                    <div class="nk-activity-data">
+                                                        <div class="label">{{ $val ?? '' }}</div>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        @endforeach
+                                    </ul>
+                                </div><!-- .nk-block -->
                             </div>
                         </div>
                     </div>

@@ -65,35 +65,51 @@
                                         </li>
                                     </ul>
                                 </li> 
-                              <!--  <li class="nk-menu-item has-sub">
-                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                               <li class="nk-menu-item ">
+                                    <a href="{{ url('admin-dashboard/applications') }}" class="nk-menu-link ">
                                         <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
-                                        <span class="nk-menu-text">Properties features</span>
+                                        <span class="nk-menu-text">Applications</span>
                                     </a>
-                                    <ul class="nk-menu-sub">
-                                        <li class="nk-menu-item">
-                                            <a href="{{ url('/admin-dashboard/properties/catgories') }}" class="nk-menu-link"><span class="nk-menu-text">Storage Types</span></a>
-                                        </li>
-                                         <li class="nk-menu-item">
-                                            <a href="{{url('/admin-dashboard/sizes')}}" class="nk-menu-link"><span class="nk-menu-text">Sizes</span></a>
-                                        </li>
-                                        <li class="nk-menu-item">
-                                            <a href="{{url('/admin-dashboard/features')}}" class="nk-menu-link"><span class="nk-menu-text">Features</span></a>
-                                        </li> 
-                                    </ul>
-                                </li>-->
-                                <!-- <li class="nk-menu-item has-sub">
+                                </li>
+                                <li class="nk-menu-item ">
+                                    <a href="{{ url('admin-dashboard/payments') }}" class="nk-menu-link ">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                        <span class="nk-menu-text">Payments</span>
+                                    </a>
+                                </li>
+                                <li class="nk-menu-item ">
+                                    <a href="{{ url('admin-dashboard/residents') }}" class="nk-menu-link ">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                        <span class="nk-menu-text">Residents & lease</span>
+                                    </a>
+                                </li>
+                                <li class="nk-menu-item ">
+                                    <a href="{{ url('admin-dashboard/maintenance') }}" class="nk-menu-link ">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                        <span class="nk-menu-text">Maintenance</span>
+                                    </a>
+                                </li>
+                                <li class="nk-menu-item ">
+                                    <a href="{{ url('admin-dashboard/expenses') }}" class="nk-menu-link ">
+                                        <span class="nk-menu-icon"><em class="icon ni ni-users"></em></span>
+                                        <span class="nk-menu-text">Expenses</span>
+                                    </a>
+                                </li>
+
+                                <li class="nk-menu-item has-sub">
                                     <a href="#" class="nk-menu-link nk-menu-toggle">
                                         <span class="nk-menu-icon"><i class="fas fa-network-wired"></i></span>
-                                        <span class="nk-menu-text">Genre</span>
+                                        <span class="nk-menu-text">My Account</span>
                                     </a>
                                     <ul class="nk-menu-sub">
                                         <li class="nk-menu-item">
-                                            <a href="{{url('/admin-dashboard/genre')}}" class="nk-menu-link"><span class="nk-menu-text">Genre List</span></a>
+                                            <a href="{{ url('admin-dashboard/account-setting') }}" class="nk-menu-link"><span class="nk-menu-text">Account Setting</span></a>
                                         </li>
-
+                                        <li class="nk-menu-item">
+                                            <a href="#" class="nk-menu-link"><span class="nk-menu-text">Banks & Cards</span></a>
+                                        </li>
                                     </ul>
-                                </li> -->
+                                </li>
                                
                              
                             </ul>
@@ -163,7 +179,7 @@
                                             <div class="dropdown-inner">
                                                 <ul class="link-list">
                                                     <!-- <li><a href="html/user-profile-regular.html"><em class="icon ni ni-user-alt"></em><span>View Profile</span></a></li> -->
-                                                    <li><a href="{{url('admin-dashboard/update-token') ?? ''}}"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
+                                                    <li><a href="{{url('admin-dashboard/account-setting') ?? ''}}"><em class="icon ni ni-setting-alt"></em><span>Account Setting</span></a></li>
                                                     <!-- <li><a href="html/user-profile-activity.html"><em class="icon ni ni-activity-alt"></em><span>Login Activity</span></a></li> -->
                                                     <li><a class="dark-switch" href="#"><em class="icon ni ni-moon"></em><span>Dark Mode</span></a></li>
                                                 </ul>

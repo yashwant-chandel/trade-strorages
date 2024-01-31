@@ -5,6 +5,12 @@ use App\Http\Controllers\authentication\AuthenticationController;
 use App\Http\Controllers\Admin\AdminDashController;
 use App\Http\Controllers\Admin\Properties\CategoryController;
 use App\Http\Controllers\Admin\Properties\PropertiesController;
+use App\Http\Controllers\Admin\Application\ApplicationController;
+use App\Http\Controllers\Admin\Payment\PaymentController;
+use App\Http\Controllers\Admin\Maintance\MaintanceController;
+use App\Http\Controllers\Admin\Expenses\ExpensesController;
+use App\Http\Controllers\Admin\Residents\ResidentsLeaseController;
+use App\Http\Controllers\Admin\Account\AccountSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,5 +68,25 @@ Route::post('admin-dashboard/storage/submitProcc',[PropertiesController::class,'
 Route::post('admin-dashboard/storage/updateProcc',[PropertiesController::class,'storageUpdate']);
 Route::get('admin-dashboard/storage/delete/{id}',[PropertiesController::class,'storageDelete']);
 Route::get('admin-dashboard/storage/update/{id}',[PropertiesController::class,'updateStorage']);
+
+
+////Applications
+Route::get('admin-dashboard/applications',[ApplicationController::class,'index']);
+
+///payments
+Route::get('admin-dashboard/payments',[PaymentController::class,'index']);
+
+///maintance
+Route::get('admin-dashboard/maintenance',[MaintanceController::class,'index']);
+
+///Expenses
+Route::get('admin-dashboard/expenses',[ExpensesController::class,'index']);
+
+//Residents and lease
+Route::get('admin-dashboard/residents',[ResidentsLeaseController::class,'index']);
+
+///accountsetting
+Route::get('admin-dashboard/account-setting',[AccountSettingController::class,'index']);
+Route::post('admin-dashboard/updateProfile',[AccountSettingController::class,'updateProfile']);
 
 });

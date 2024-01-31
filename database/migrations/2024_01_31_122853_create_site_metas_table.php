@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('site_metas', function (Blueprint $table) {
             $table->id();
-            $table->string('icon');
-            $table->string('name');
-            $table->string('slug');
-            $table->string('image');
-            $table->integer('status')->default(1);
+            $table->string('key');
+            $table->longText('value');
+            $table->string('type');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('site_metas');
     }
 };

@@ -140,22 +140,32 @@
                     
                 </div>
                 <hr>
-                <!-- <div class="row g-3 align-center">
+                <div class="row g-3 align-center">
                     <div class="col-lg-5">
                         <div class="form-group">
                             <label class="form-label">Storage facility feature</label>
-                            <span class="form-note">Specify the storage facility feature of your publication.</span>
+                            <span class="form-note">Specify the storage facility feature of your propertie.</span>
+                            <button class="btn btn-primary" id="add-more-feature">Add More+</button>
                         </div>
                     </div>
-                    <div class="col-lg-7">
-                        <div class="form-group">
-                            <div class="form-control-wrap">
-                                <input type="number" min="1" class="form-control form-data" id="facility_feature" name="facility_feature" value="" placeholder="Enter number of domain authority">
+                    <div class="col-lg-7" id="features_div">
+                        <div class="feature">
+                            <div class="form-group">
+                                <div class="form-control-wrap">
+                                    <input type="text"  class="form-control form-data" id="icon" name="icon[]" value="" placeholder="Enter your icon tag">
+                                </div>
                             </div>
+                            <div class="form-group">
+                                <div class="form-control-wrap">
+                                    <textarea type="number" min="1" class="form-control form-data" id="facility_feature" name="facility_feature[]"  placeholder="Enter number feature"></textarea>
+                                </div>
+                            </div>
+                            <hr>
                         </div>
+                        
                     </div>
                 </div>
-                <hr> -->
+                <hr>
                 <div class="row g-3 align-center">
                     <div class="col-lg-5">
                         <div class="form-group">
@@ -224,6 +234,31 @@
         e.preventDefault();
         count = $(this).attr('count');
         $('#option'+count).remove();
-    })
+    });
+    num = 0;
+    $('#add-more-feature').on("click",function(e){
+        e.preventDefault();
+        num = num+1;
+        html = `<div class="feature${num}">
+                            <div class="form-group">
+                            <div class="text-end"><a class="close_features" num="${num}"><i class="fas fa-window-close"></i></a></div>
+                                <div class="form-control-wrap">
+                                    <input type="text"  class="form-control form-data" id="icon" name="icon[]" value="" placeholder="Enter your icon tag">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-control-wrap">
+                                    <textarea type="number" min="1" class="form-control form-data" id="facility_feature" name="facility_feature[]"  placeholder="Enter number feature"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>`;
+        $('#features_div').append(html);
+    });
+    $("body").delegate(".close_features",'click',function(e){
+        e.preventDefault();
+        num = $(this).attr('num');
+        $('.feature'+num).remove();
+    });
 </script>
 @endsection

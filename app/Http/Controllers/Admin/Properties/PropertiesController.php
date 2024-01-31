@@ -38,6 +38,7 @@ class PropertiesController extends Controller
         // echo '<pre>';
         // print_r($request->all());
         // echo '</pre>';
+        // die();
 
         $address = new Address;
         $address->address = $request->address;
@@ -52,6 +53,11 @@ class PropertiesController extends Controller
                 $data = [$request->title[$i] => $request->description[$i]];
                 array_push($external_features,$data);
             }
+        $facility_features = [];
+            for($x=0; $x < count($request->icon); $x++){
+                $data1 = [$request->icon[$x] => $request->facility_feature[$x]];
+                array_push($facility_features,$data1);
+            }
         $stripe = new \Stripe\StripeClient( env('STRIPE_SECRET_KEY') );
         // Create product //////////////////////////////////
         $product_name_stripe = $request->address.'-'.$request->city.'-'.$request->state.'-'.$request->pincode;
@@ -64,6 +70,7 @@ class PropertiesController extends Controller
         $propertie->address_id = $address->id;
         $propertie->map_url = $request->url;
         $propertie->external_option = json_encode($external_features);
+        $propertie->storage_facility_features = json_encode($facility_features);
         $propertie->status = 1;
         $propertie->save();
 
@@ -97,6 +104,10 @@ class PropertiesController extends Controller
 
     }
     public function updateProcc(Request $request){
+        // echo '<pre>';
+        // print_r($request->all());
+        // echo '</pre>';
+        // die();
         
         $propertie = Propertie::find($request->id);
       
@@ -108,11 +119,21 @@ class PropertiesController extends Controller
         $address->update();
 
         $external_features = [];
-        for($i = 0; $i < count($request->title); $i++){
-            $data = [$request->title[$i] => $request->description[$i]];
-            array_push($external_features,$data);
+        if($request->title){
+            for($i = 0; $i < count($request->title); $i++){
+                $data = [$request->title[$i] => $request->description[$i]];
+                array_push($external_features,$data);
+            }
+        }
+        $facility_features = [];
+        if($request->icon){
+            for($x=0; $x < count($request->icon); $x++){
+                $data1 = [$request->icon[$x] => $request->facility_feature[$x]];
+                array_push($facility_features,$data1);
+            }
         }
         $propertie->map_url = $request->url;
+        $propertie->storage_facility_features = json_encode($facility_features);
         $propertie->external_option = json_encode($external_features);
         $propertie->update();
 
@@ -233,7 +254,7 @@ class PropertiesController extends Controller
         ]);
         $storage = Storage::find($request->id);
         $propertie = Propertie::find($storage->propertie_id);
- $stripe = new \Stripe\StripeClient( env('STRIPE_SECRET_KEY') );
+        $stripe = new \Stripe\StripeClient( env('STRIPE_SECRET_KEY') );
         $storage->title = $request->title;
         $storage->category_id = $request->category;
         $storage->size_id = $request->sizes;

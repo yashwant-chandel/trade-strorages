@@ -84,7 +84,6 @@
 <script>
 $('.delete').on('click',function(){
     link = $(this).attr('link');
-    console.log(link);
     Swal.fire({
                 title: 'Please Login',
                 text: "Are you sure to want to delete this property !",
