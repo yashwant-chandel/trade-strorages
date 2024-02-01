@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Sizes;
 use App\Models\Feature;
+use File;
 
 class CategoryController extends Controller
 {
@@ -19,12 +20,23 @@ class CategoryController extends Controller
             'name' => 'required',
             'slug' => 'required',
             'icon' => 'required',
+            'image' => 'required',
         ]);
+        // echo '<pre>';
+        // print_r($request->all());
+        // echo '</pre>';
+        // die();
         if($request->id){
             $catgory = Category::find($request->id);
             $catgory->name = $request->name;
             $catgory->slug = $request->slug;
             $catgory->icon = $request->icon;
+            if($request->hasFile('image')){
+                $file = $request->file('image');
+                $filename = 'Category'.time().'.'.$file->extension();
+                $file->move(public_path('category_images'),$filename);
+                $catgory->image = $filename;
+            }
             $catgory->update();
             return redirect()->back()->with('success','Successfully updated Storage Type');
         }else{
@@ -32,6 +44,12 @@ class CategoryController extends Controller
             $catgory->name = $request->name;
             $catgory->slug = $request->slug;
             $catgory->icon = $request->icon;
+            if($request->hasFile('image')){
+                $file = $request->file('image');
+                $filename = 'Category'.time().'.'.$file->extension();
+                $file->move(public_path('category_images'),$filename);
+                $catgory->image = $filename;
+            }
             $catgory->save();            
             return redirect()->back()->with('success','successfully created new Storage type');
         }
@@ -40,6 +58,10 @@ class CategoryController extends Controller
         $categories = Category::find($id);
         if(!$categories){
             abort(404);
+        }
+        $image_path = public_path('category_images/'.$categories->image);
+        if(File::exists($image_path)){
+            File::delete($image_path);
         }
         $categories->delete();
         return redirect()->back()->with('success','Successfully deleted Storage type');

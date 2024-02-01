@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
             $table->string('stripe_product_id');
+            $table->string('slug');
             $table->integer('address_id');
             $table->string('map_url');
             $table->longtext('external_option');

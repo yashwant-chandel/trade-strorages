@@ -12,6 +12,8 @@ use App\Http\Controllers\Admin\Expenses\ExpensesController;
 use App\Http\Controllers\Admin\Residents\ResidentsLeaseController;
 use App\Http\Controllers\Admin\Account\AccountSettingController;
 
+use App\Http\Controllers\Front\FrontHomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,9 +25,8 @@ use App\Http\Controllers\Admin\Account\AccountSettingController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[FrontHomeController::class,'index']);
+Route::get('/test',[AdminDashController::class,'test']);
 
 Route::get('/admin-login',[AuthenticationController::class,'index']);
 Route::post('/loginprocc',[AuthenticationController::class,'loginProcc']);
@@ -41,7 +42,7 @@ Route::get('/admin-dashboard/properties/catgories',[CategoryController::class,'i
 Route::post('/admin-dashboard/categorySubmit',[CategoryController::class,'submitProcc']);
 Route::get('/admin-dashboard/category/delete/{id}',[CategoryController::class,'delete']);
 
-////sizes
+////sizes00
 Route::get('/admin-dashboard/sizes/{slug}',[CategoryController::class,'sizes']);
 Route::post('/admin-dashboard/sizeSubmit',[CategoryController::class,'sizeSubmit']);
 Route::get('/admin-dashboard/sizes/delete/{id}',[CategoryController::class,'sizedelete']);

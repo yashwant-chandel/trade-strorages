@@ -7,7 +7,7 @@
                              <h5 class="card-title">Storage Types</h5>
                              <button class="remove btn btn-link" ><i class="fas fa-times"></i></button>
                          </div>
-                         <form action="{{ url('admin-dashboard/categorySubmit') }}" method="POST">
+                         <form action="{{ url('admin-dashboard/categorySubmit') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="id" value="">
                              <div class="form-group">
@@ -23,6 +23,15 @@
                                  <label class="form-label" for="icon">Icon</label>
                                  <div class="form-control-wrap">
                                      <input type="text" name="icon" class="form-control" id="icon" value="">
+                                 </div>
+                                 @error('icon')
+				                                <span class="text text-danger">{{ $message }}</span>
+		                          @enderror
+                             </div>
+                             <div class="form-group">
+                                 <label class="form-label" for="image">Image</label>
+                                 <div class="form-control-wrap">
+                                     <input type="file" name="image" class="form-control" id="image" value="">
                                  </div>
                                  @error('icon')
 				                                <span class="text text-danger">{{ $message }}</span>
@@ -182,8 +191,8 @@
             $('.delete-btn').on('click',function(){
                 link = $(this).attr('link');
                 Swal.fire({
-                title: 'Please Login',
-                text: "Are you sure to want to delete this property !",
+                title: 'Are you sure?',
+                text: "Are you sure to want to delete this storage type ?",
                 icon: 'info',
                 showCancelButton: true,
                 cancelButtonText: 'No',

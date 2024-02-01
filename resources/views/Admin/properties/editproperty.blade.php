@@ -120,7 +120,7 @@
                     <div class="col-lg-5">
                         <div class="form-group">
                             <label class="form-label">External option</label>
-                            <span class="form-note">Specify the price of your property.</span>
+                            <span class="form-note">Enter your external options of your propertie.</span>
                             <button type="button" class="btn btn-primary " id="add-external-option">Add+</button>
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                     <div class="col-lg-5">
                         <div class="form-group">
                             <label class="form-label">Storage facility feature</label>
-                            <span class="form-note">Specify the storage facility feature of your publication.</span>
+                            <span class="form-note">Enter the storage facility feature of your property.</span>
                             <button class="btn btn-primary" id="add-more-feature">Add More+</button>
                         </div>
                     </div>

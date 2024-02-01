@@ -364,8 +364,8 @@
                     $('.delete-storage').on('click',function(){
                         link = $(this).attr('link');
                         Swal.fire({
-                            title: 'Please Login',
-                            text: "Are you sure to want to delete this property !",
+                            title: 'Are you sure?',
+                            text: "Are you sure to want to delete this storage ?",
                             icon: 'info',
                             showCancelButton: true,
                             cancelButtonText: 'No',

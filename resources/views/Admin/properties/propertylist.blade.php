@@ -61,9 +61,9 @@
                                                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                         <div class="dropdown-menu dropdown-menu-end">
                                                                             <ul class="link-list-opt no-bdr">
-                                                                                <li><a href="{{ url('admin-dashboard/properties/edit/'.$propertie->id) }}"><em class="icon ni ni-edit"></em><span>Edit Propertie</span></a></li>
+                                                                                <li><a href="{{ url('admin-dashboard/properties/edit/'.$propertie->slug) }}"><em class="icon ni ni-edit"></em><span>Edit Propertie</span></a></li>
                                                                                 <li><a class="delete" link="{{ url('admin-dashboard/properties/delete/'.$propertie->id) }}"><em class="icon ni ni-activity-round"></em><span>Remove Propertie</span></a></li>
-                                                                                <li><a href="{{ url('admin-dashboard/properties/view/'.$propertie->id) }}"><em class="icon ni ni-eye"></em><span>View Propertie</span></a></li>
+                                                                                <li><a href="{{ url('admin-dashboard/properties/view/'.$propertie->slug) }}"><em class="icon ni ni-eye"></em><span>View Propertie</span></a></li>
                                                                             </ul>
                                                                         </div>
                                                                     </div>
@@ -85,7 +85,7 @@
 $('.delete').on('click',function(){
     link = $(this).attr('link');
     Swal.fire({
-                title: 'Please Login',
+                title: 'Are you sure?',
                 text: "Are you sure to want to delete this property !",
                 icon: 'info',
                 showCancelButton: true,

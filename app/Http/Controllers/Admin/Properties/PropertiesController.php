@@ -22,7 +22,10 @@ class PropertiesController extends Controller
         return view('Admin.properties.addproperty');
     }
     public function edit($id){
-        $propertie = Propertie::find($id);
+        $propertie = Propertie::where('slug',$id)->first();
+        if(!$propertie){
+            abort(404);
+        }
         return view('Admin.properties.editproperty',compact('propertie'));
     }
     public function submitProcc(Request $request){
@@ -65,8 +68,11 @@ class PropertiesController extends Controller
             'name' => $product_name_stripe,
             'description' => '<></>',
         ]);
+        $slug = $request->address.'+'.$request->city.'+'.$request->state.'+'.$request->pincode;
+
         $propertie = new Propertie;
         $propertie->stripe_product_id = $productstripe->id;
+        $propertie->slug = str_replace(" ","+",$slug);
         $propertie->address_id = $address->id;
         $propertie->map_url = $request->url;
         $propertie->external_option = json_encode($external_features);
@@ -132,6 +138,9 @@ class PropertiesController extends Controller
                 array_push($facility_features,$data1);
             }
         }
+
+        $slug = $request->address.'+'.$request->city.'+'.$request->state.'+'.$request->pincode;
+        $propertie->slug = str_replace(" ","+",$slug);
         $propertie->map_url = $request->url;
         $propertie->storage_facility_features = json_encode($facility_features);
         $propertie->external_option = json_encode($external_features);
@@ -171,9 +180,12 @@ class PropertiesController extends Controller
         return view('Admin.properties.propertylist',compact('properties'));
     }
     
-    public function view($id){
+    public function view($slug){
             
-        $propertie_data = Propertie::find($id);
+        $propertie_data = Propertie::where('slug',$slug)->first();
+        if(!$propertie_data){
+            abort(404);
+        }
         $categories = Category::all();
         
         return view('Admin.properties.propertyview',compact('propertie_data','categories'));
