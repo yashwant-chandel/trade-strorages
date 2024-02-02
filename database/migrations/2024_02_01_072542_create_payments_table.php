@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->string('stripe_invoice_id');
+            $table->string('stripe_payment_intent');
+            $table->string('stripe_payment_method');
+            $table->string('amount');
+            $table->string('discount_amount')->nullable();
+            $table->string('discount_coupon')->nulllable();
+            $table->string('payment_type');
+            $table->string('payment_status');
+            $table->integer('subscription_id');
             $table->timestamps();
         });
     }
