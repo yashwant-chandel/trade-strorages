@@ -108,7 +108,7 @@ $usStates = array(
                                                                 @if(!Auth::user()->address)
                                                                     <span class="data-value text-soft">Not add yet</span>
                                                                 @else
-                                                                    <span class="data-value">2337 Kildeer Drive,<br>Kentucky, Canada</span>
+                                                                    <span class="data-value">{{ $address->address ?? '' }} {{ $address->city ?? '' }}<br>{{ $address->state ?? '' }}, {{ $address->pincode ?? '' }}</span>
                                                                 @endif
                                                             </div>
                                                             <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
