@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\Account\AccountSettingController;
 
 use App\Http\Controllers\Front\FrontHomeController;
 use App\Http\Controllers\StripeWebhookController;
-
+use App\Http\Controllers\Admin\SiteContent;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -92,4 +92,6 @@ Route::get('admin-dashboard/residents',[ResidentsLeaseController::class,'index']
 Route::get('admin-dashboard/account-setting',[AccountSettingController::class,'index']);
 Route::post('admin-dashboard/updateProfile',[AccountSettingController::class,'updateProfile']);
 
+//sitecontent
+Route::get('admin-dashboard/site-content',[SiteContent::class,'homepage']);
 });

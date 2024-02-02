@@ -11,8 +11,9 @@ class SiteContent extends Controller
 
         return view('Admin.site_content.home_page');
    }
-   public function saveHome(Request $request){
 
+   public function saveHome(Request $request){
+     
    }
 
 }
