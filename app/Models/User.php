@@ -43,7 +43,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function address(){
+    public function address_data(){
+
         return $this->hasOne(Address::class,'id','address');
     }
 }

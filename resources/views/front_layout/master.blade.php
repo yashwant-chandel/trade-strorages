@@ -15,6 +15,12 @@
         <title>Landing page</title>
     </head>
     <body>
+        <?php 
+         $admin = App\Models\User::where('is_admin',1)->first();
+         $sitemeta = App\Models\SiteMeta::all();
+         $storage_types = App\Models\Category::all();
+        
+        ?>
         <header class="main_header">
             <div class="container">
                 <div class="row align-items-center">
@@ -35,9 +41,9 @@
                             </ul>
                             <ul class="links_contact">
                                 <li>
-                                    <a href="tel:+91 1244830593">
+                                    <a href="tel:+1 {{ $admin->phone ?? '' }}">
                                         <img src="{{ asset('Trade_Storage/assets/img/phone.png') }}" alt="" />
-                                        800-688-8057
+                                       {{ $admin->phone ?? '' }}
                                     </a>
                                 </li>
                                 <li>
@@ -69,18 +75,33 @@
                             <a href=""><img src="{{ asset('Trade_Storage/assets/img/Trade Storage.png') }}" alt="" /></a>
                             <p>STAY TUNED TO Trade Storage</p>
                             <ul class="social_links d-flex align-items-center gap-3">
-                                <li>
-                                    <a href=""><img src="{{ asset('Trade_Storage/assets/img/facebook-white.png') }}" alt=""/></a>
-                                </li>
-                                <li>
-                                    <a href=""><img src="{{ asset('Trade_Storage/assets/img/instagram-white.png') }}" alt=""/></a>
-                                </li>
-                                <li>
-                                    <a href=""><img src="{{ asset('Trade_Storage/assets/img/pintrest-white.png') }}" alt=""/></a>
-                                </li>
-                                <li>
-                                    <a href=""><img src="{{ asset('Trade_Storage/assets/img/linkedin.png') }}" alt=""/></a>
-                                </li>
+                                @foreach($sitemeta as $meta)
+                                @if($meta->key == 'facebook')
+                                    @if($meta->value)
+                                    <li>
+                                        <a href="//{{ $meta->value ?? '' }}"><img src="{{ asset('Trade_Storage/assets/img/facebook-white.png') }}" alt=""/></a>
+                                    </li>
+                                    @endif
+                                @elseif($meta->key == 'instagram')
+                                    @if($meta->value)
+                                    <li>
+                                        <a href="//{{ $meta->value ?? '' }}"><img src="{{ asset('Trade_Storage/assets/img/instagram-white.png') }}" alt=""/></a>
+                                    </li>
+                                    @endif
+                                @elseif($meta->key == 'pintrest')
+                                    @if($meta->value)
+                                    <li>
+                                        <a href="//{{ $meta->value ?? '' }}"><img src="{{ asset('Trade_Storage/assets/img/pintrest-white.png') }}" alt=""/></a>
+                                    </li>
+                                    @endif
+                                @elseif($meta->key == 'linkedin')
+                                    @if($meta->value)
+                                    <li>
+                                        <a href="//{{ $meta->value ?? '' }}"><img src="{{ asset('Trade_Storage/assets/img/linkedin.png') }}" alt=""/></a>
+                                    </li>
+                                    @endif
+                                @endif
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -88,24 +109,11 @@
                         <div class="foter_links">
                             <h2 class="quick_link">Storage Types</h2>
                             <ul>
+                                @foreach($storage_types as $types)
                                 <li>
-                                    <a href="">Self Storage Facilities </a>
+                                    <a href="">{{ $types->name ?? '' }}</a>
                                 </li>
-                                <li>
-                                    <a href="">Business Storage </a>
-                                </li>
-                                <li>
-                                    <a href="">Car and RV Storage </a>
-                                </li>
-                                <li>
-                                    <a href="">Boat Storage </a>
-                                </li>
-                                <li>
-                                    <a href="">Climate Controlled Storage</a>
-                                </li>
-                                <li>
-                                    <a href="">Office Storage</a>
-                                </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -133,13 +141,15 @@
                             <div class="foter_links">
                                 <h2 class="quick_link">Address</h2>
                                 <div class="adress">
-                                    <p>1023 Shallowford Rd, Marietta, GA <br> 30066</p>
+                                    @if($admin->address_data)
+                                    <p>{{ $admin->address_data->address ?? '' }}, {{ $admin->address_data->city ?? '' }}, {{ $admin->address_data->state ?? '' }} <br> {{ $admin->address_data->pincode ?? '' }}</p>
+                                    @endif
                                 </div>
                             </div>
                             <div class="foter_links foter_adrs">
                                 <h2 class="quick_link">EMAIL</h2>
                                 <div class="adress">
-                                    <a href="mailto:info@tradestorage.com">info@tradestorage.com</a>
+                                    <a href="mailto:{{ $admin->email ?? '' }}">{{ $admin->email ?? '' }}</a>
                                 </div>
                             </div>
                         </div>

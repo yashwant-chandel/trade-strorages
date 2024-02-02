@@ -98,7 +98,11 @@ $usStates = array(
                                                         <div class="data-item" data-bs-toggle="modal" data-bs-target="#profile-edit">
                                                             <div class="data-col">
                                                                 <span class="data-label">Phone Number</span>
-                                                                <span class="data-value text-soft">Not add yet</span>
+                                                                @if(!Auth::user()->phone)
+                                                                    <span class="data-value text-soft">Not add yet</span>
+                                                                @else
+                                                                    <span class="data-value text-soft">{{ Auth::user()->phone ?? '' }}</span>
+                                                                @endif
                                                             </div>
                                                             <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
                                                         </div><!-- data-item -->
@@ -184,6 +188,15 @@ $usStates = array(
                                         <input type="email" class="form-control form-control-lg" id="email" name="email" value="{{ Auth::user()->email ?? '' }}" placeholder="Enter your email">
                                     </div>
                                     @error('email')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="phone">Phone</label>
+                                        <input type="text" class="form-control form-control-lg" id="phone" name="phone" value="{{ Auth::user()->phone ?? '' }}" placeholder="Enter your phone">
+                                    </div>
+                                    @error('phone')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>

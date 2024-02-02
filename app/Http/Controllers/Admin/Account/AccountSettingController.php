@@ -13,11 +13,16 @@ use App\Models\SiteMeta;
 class AccountSettingController extends Controller
 {
    public function index(){
+       
         $address = Address::find(Auth::user()->address);
         $site_meta = SiteMeta::all();
         return view('Admin.account.setting',compact('address','site_meta'));
    }
    public function updateProfile(Request $request){
+    // echo '<pre>';
+    // print_r($request->all());
+    // echo '</pre>';
+    // die();
     if($request->action == 'personal_detail'){
         $request->validate([
             'full_name' => 'required',
@@ -27,6 +32,7 @@ class AccountSettingController extends Controller
         $user = User::find(Auth::user()->id);
         $user->name = $request->full_name;
         $user->email = $request->email;
+        $user->phone = $request->phone;
 
         if($request->old_password){
             $request->validate([
@@ -69,13 +75,14 @@ class AccountSettingController extends Controller
     }elseif($request->action = 'links'){
         $site_meta = SiteMeta::all();
         foreach($site_meta as $metas){
-            if($request[$metas->key]){
+            // if($request[$metas->key]){
                $add_meta = SiteMeta::find($metas->id);
                $add_meta->value = $request[$metas->key];
                $add_meta->update();
-            }
+            // }
         }
     }
+    // die();
         return redirect()->back()->with('success','Successfully updated');
    }
 }

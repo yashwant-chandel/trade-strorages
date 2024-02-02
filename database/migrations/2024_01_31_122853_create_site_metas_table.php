@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('site_metas', function (Blueprint $table) {
             $table->id();
             $table->string('key');
-            $table->longText('value');
+            $table->longText('value')->nullable();
             $table->string('type');
             $table->timestamps();
         });
