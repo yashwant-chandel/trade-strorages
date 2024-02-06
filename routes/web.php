@@ -104,5 +104,6 @@ Route::get('admin-dashboard/site-content',[SiteContent::class,'homepage']);
 Route::post('admin-dashboard/site-content/submitProcc',[SiteContent::class,'saveHome']);
 Route::get('admin-dashboard/site-features',[SiteContent::class,'features']);
 Route::post('admin-dashboard/featureSubmit',[SiteContent::class,'featureSubmit']);
+Route::get('admin-dashboard/featureDelete/{id}',[SiteContent::class,'featureDelete']);
 
 });

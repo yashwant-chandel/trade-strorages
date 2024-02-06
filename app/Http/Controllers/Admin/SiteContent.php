@@ -81,8 +81,32 @@ class SiteContent extends Controller
     return view('Admin.site_content.site_features',compact('features'));
    }
    public function featureSubmit(Request $request){
-    echo '<pre>';
-        print_r($request->all());
-    echo '</pre>';
+    
+    $request->validate([
+        'title' => 'required',
+        // 'description' => 'required',
+    ]);
+    if($request->id){
+        $siteFeatures = SiteFeature::find($request->id);
+        $siteFeatures->title = $request->title;
+        $siteFeatures->description = $request->description;
+        $siteFeatures->update();
+        return redirect()->back()->with('success','successfully updated site features');
+    }else{
+        $siteFeatures = new SiteFeature;
+        $siteFeatures->title = $request->title;
+        $siteFeatures->description = $request->description;
+        $siteFeatures->save();
+        return redirect()->back()->with('success','successfully saved site features');
+    }
+   }
+   public function featureDelete($id){
+
+        $feature = SiteFeature::find($id);
+        if(!$feature){
+            abort(404);
+        }
+        $feature->delete();
+        return redirect()->back()->with('success','Successfully deleted site feature');
    }
 }

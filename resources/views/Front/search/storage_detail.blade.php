@@ -3,10 +3,10 @@
 
 
 <ul class="find_breadcrumb">
-        <li><a href="">Home</a><span>|</span></li>
-        <li><a href="">Locations </a><span>|</span></li>
+        <li><a href="{{ url('/') }}">Home</a><span>|</span></li>
+        <li><a href="{{ url('/storage-search') }}"> Locations </a><span>|</span></li>
         <li>
-            <a class="active_crumb" href="">1023 Shallowford Rd, Marietta, Ga 30066</a>
+            <a class="active_crumb" >{{ $propertie->address->address ?? '' }}, {{ $propertie->address->city ?? '' }}, {{ $propertie->address->state ?? '' }} {{ $propertie->address->pincode ?? '' }}</a>
         </li>
     </ul>
     <section class="find">
@@ -15,22 +15,21 @@
                 <div class="row">
                     <div class="col-md-5">
                         <div class="find_box">
+                        <form action="{{ url('storage-search') }}" method="get">
                             <h2>Find Storage Near You</h2>
                             <div class="find_search">
-                                <input type="text" placeholder="Enter City, State or Zip" />
-                                <input type="button" name="" id="" value="Search" />
+                                <input type="text" name="location" placeholder="Enter City, State or Zip" />
+                                <input type="submit" name="" id="" value="Search" />
                             </div>
+                        </form>
                         </div>
                     </div>
                     <div class="col-md-7">
                         <div class="find_box">
                             <ul class="find_list">
-                                <li>$1 First Month Rent Where Available</li>
-                                <li>No Obligation to rent</li>
-                                <li>All rentals month to month</li>
-                                <li>Trusted nationwide since 1972</li>
-                                <li>No credit card required</li>
-                                <li>Convenient Access hours</li>
+                            @foreach($site_features as $features)
+                                 <li>{{ $features->title ?? '' }}</li>
+                            @endforeach
                             </ul>
                         </div>
                     </div>
@@ -238,53 +237,28 @@
             </div>
     </section>
 
-
+@if($near_by_properties->isNotEmpty())
     <section class="self_storage">
         <div class="container">
             <div class="slf_storage_main">
                 <h3>Nearby Self-Storage Locations</h3>
                 <div class="row">
+                    @foreach($near_by_properties as $near)
                     <div class="col-md-3">
                         <div class="slf_box">
                             <div class="slf_img">
                                 <img src="{{ asset('Trade_Storage/assets/img/slf1.png') }}" alt="">
                             </div>
-                            <h4>Self Storage Near</h4>
-                            <a>1023 Shallowford Rd, <br> Marietta, Ga 30066</a>
+                            <h4>Storage Near</h4>
+                            <a>{{ $near->address->address ?? '' }}, <br> {{ $near->address->city ?? '' }}, {{ $near->address->state ?? '' }} {{ $near->address->pincode ?? '' }}</a>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="slf_box">
-                            <div class="slf_img">
-                                <img src="{{ asset('Trade_Storage/assets/img/slf2.png') }}" alt="">
-                            </div>
-                            <h4>Self Storage Near</h4>
-                            <a>1023 Shallowford Rd, <br> Marietta, Ga 30066</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="slf_box">
-                            <div class="slf_img">
-                                <img src="{{ asset('Trade_Storage/assets/img/slf3.png') }}" alt="">
-                            </div>
-                            <h4>Self Storage Near</h4>
-                            <a>1023 Shallowford Rd, <br> Marietta, Ga 30066</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="slf_box">
-                            <div class="slf_img">
-                                <img src="{{ asset('Trade_Storage/assets/img/slf4.png') }}" alt="">
-                            </div>
-                            <h4>Self Storage Near</h4>
-                            <a>1023 Shallowford Rd, <br> Marietta, Ga 30066</a>
-                        </div>￼ + View all units at this location
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </section>
-
+@endif
     <section class="north_trade">
         <div class="container">
             <div class="north_cont">

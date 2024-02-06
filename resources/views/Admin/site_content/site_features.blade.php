@@ -80,7 +80,7 @@
                            </td>
                            <td class="tb-tnx-info text-center">
                                <div class="tb-tnx-desc">
-                                   <span class="title">{{ $feature->name ?? '' }}</span>
+                                   <span class="title">{{ $feature->title ?? '' }}</span>
                                </div>
                            </td>
                             <td class="tb-tnx-info text-center">
@@ -94,8 +94,8 @@
                                 <a class="text-soft dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown" data-offset="-8,0"><em class="icon ni ni-more-h"></em></a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-xs">
                                     <ul class="link-list-plain">
-                                        <li><a class="edit-btn" feature-title="{{ $feature->name ?? '' }}" feature-description="{{ $feature->description ?? '' }}" feature-id="{{ $feature->id ?? '' }}"  href="{{ url('/admin-dashboard/size/') }}/">Edit</a></li>
-                                        <li><a href="{{ url('admin-dashboard/sizes/delete/') }}/{{ $feature->id ?? '' }}">delete</a></li>
+                                        <li><a class="edit-btn" feature-title="{{ $feature->title ?? '' }}" feature-description="{{ $feature->description ?? '' }}" feature-id="{{ $feature->id ?? '' }}"  href="{{ url('/admin-dashboard/size/') }}/">Edit</a></li>
+                                        <li><a href="{{ url('admin-dashboard/featureDelete/') }}/{{ $feature->id ?? '' }}">delete</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -135,23 +135,20 @@
             $('.edit-btn').on('click',function(e){
                 e.preventDefault();
                 $('div#add-section').removeClass('d-none');
-                name = $(this).attr('size-name');
-                slug = $(this).attr('size-slug');
-                id = $(this).attr('size-id');
-                icon = $(this).attr('size-description');
+                name = $(this).attr('feature-title');
+                id = $(this).attr('feature-id');
+                description = $(this).attr('feature-description');
                 // console.log(name+slug+id+icon);
            
-                $('input[name="name"]').val(name);
-                $('input[name="slug"]').val(slug);
+                $('input[name="title"]').val(name);
                 $('input[name="id"]').val(id);
-                $('textarea[name="description"]').html(icon);
+                $('textarea[name="description"]').html(description);
 
                 $('.savebtn').hide();
                 $('.updatediv').show();
             });
             $('.addnew').click(function(){
-                $('input[name="name"]').val('');
-                $('input[name="slug"]').val('');
+                $('input[name="title"]').val('');
                 $('input[name="id"]').val('');
                 $('textarea[name="description"]').html('');
 
@@ -163,10 +160,14 @@
             })
             $('.remove').on('click',function(){
                 $('div#add-section').addClass('d-none');
-                $('input[name="name"]').val('');
-                $('input[name="slug"]').val('');
+                $('input[name="title"]').val('');
                 $('input[name="id"]').val('');
                 $('textarea[name="description"]').html('');
             })
         </script>
+        @if($errors->any())
+        <script>
+          $('#add-section').removeClass('d-none');
+        </script>
+        @endif
 @endsection

@@ -267,7 +267,7 @@ img {
     height: 69px;
 }
 
-.office input[type='button'] {
+.office input[type='submit'] {
     border-radius: 270px;
     background: #FBB93F;
     padding: 25px 63px;
@@ -851,7 +851,7 @@ footer.main_footer .row [class^="col-"]:nth-child(2) {
     color: #3D3D3D;
 }
 
-.find_search input[type='button'] {
+.find_search input[type='submit'] {
     background-color: #FBB93F;
     border-radius: 270px;
     padding: 17px 43px;

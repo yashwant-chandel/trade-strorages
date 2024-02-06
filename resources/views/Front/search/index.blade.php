@@ -10,8 +10,8 @@ if(isset($_GET['storage_type'])){
 
 ?>
 <ul class="find_breadcrumb">
-      <li><a href="/">Home</a><span>|</span></li>
-      <li><a href="">Locations </a><span>|</span></li>
+      <li><a href="{{ url('/') }}">Home</a><span>|</span></li>
+      <li><a href="{{ url('/storage-search') }}">Locations </a><span>|</span></li>
       <li>
         <a class="active_crumb" href=""
           >@if(isset($_GET['location'])) {{ $_GET['location'] }} @endif</a
@@ -26,23 +26,22 @@ if(isset($_GET['storage_type'])){
               <div class="find_box">
                 <h2>Find Storage Near You</h2>
                 <div class="find_search">
+                  <form action="{{ url('storage-search') }}" method="get">
                   <input
-                    type="text"
-                    placeholder="1023 Shallowford Rd, Mari..."
+                    type="text" name="location"
+                    placeholder="Enter city, state or zipcode"
                   />
-                  <input type="button" name="" id="" value="Search" />
+                  <input type="submit" name="" id="" value="Search" />
+                  </form>
                 </div>
               </div>
             </div>
             <div class="col-md-7">
               <div class="find_box">
                 <ul class="find_list">
-                  <li>$1 First Month Rent Where Available</li>
-                  <li>No Obligation to rent</li>
-                  <li>All rentals month to month</li>
-                  <li>Trusted nationwide since 1972</li>
-                  <li>No credit card required</li>
-                  <li>Convenient Access hours</li>
+                  @foreach($site_features as $features)
+                  <li>{{ $features->title ?? '' }}</li>
+                  @endforeach
                 </ul>
               </div>
             </div>
