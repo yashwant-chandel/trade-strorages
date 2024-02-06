@@ -12,8 +12,10 @@ use App\Http\Controllers\Admin\Expenses\ExpensesController;
 use App\Http\Controllers\Admin\Residents\ResidentsLeaseController;
 use App\Http\Controllers\Admin\Account\AccountSettingController;
 
+use App\Http\Controllers\Front\StorageSearchController;
 use App\Http\Controllers\Front\FrontHomeController;
 use App\Http\Controllers\StripeWebhookController;
+use App\Http\Controllers\Admin\SiteContent;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +29,12 @@ use App\Http\Controllers\StripeWebhookController;
 */
 
 Route::get('/',[FrontHomeController::class,'index']);
-Route::get('/test',[AdminDashController::class,'test']);
+Route::post('getSizes',[FrontHomeController::class,'getSizes']);
+Route::post('getFeatures',[FrontHomeController::class,'getFeatures']);
+
+// Route::get('/test',[AdminDashController::class,'test']);
+Route::get('/storage-search',[StorageSearchController::class,'index']);
+Route::get('/storage-search/{slug}',[StorageSearchController::class,'StorageDetail']);
 
 Route::get('/admin-login',[AuthenticationController::class,'index']);
 Route::post('/loginprocc',[AuthenticationController::class,'loginProcc']);
@@ -91,5 +98,11 @@ Route::get('admin-dashboard/residents',[ResidentsLeaseController::class,'index']
 ///accountsetting
 Route::get('admin-dashboard/account-setting',[AccountSettingController::class,'index']);
 Route::post('admin-dashboard/updateProfile',[AccountSettingController::class,'updateProfile']);
+
+//sitecontent
+Route::get('admin-dashboard/site-content',[SiteContent::class,'homepage']);
+Route::post('admin-dashboard/site-content/submitProcc',[SiteContent::class,'saveHome']);
+Route::get('admin-dashboard/site-features',[SiteContent::class,'features']);
+Route::post('admin-dashboard/featureSubmit',[SiteContent::class,'featureSubmit']);
 
 });

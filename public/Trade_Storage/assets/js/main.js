@@ -32,6 +32,31 @@ $(document).ready(function () {
     prevArrow: $(".recent_arrow .right_arow"),
     adaptiveHeight: true,
   });
+
+// product detail page slider js
+
+$('.public_slider').slick({
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: true,
+  fade: true,
+  asNavFor: '.slide_public2',
+  prevArrow: $('.public_arows .left_arow'),
+  nextArrow: $('.public_arows .right_arow'),
+  infinite:true,
+});
+$('.slide_public2').slick({
+  slidesToShow: 6,
+  slidesToScroll: 1,
+  asNavFor: '.public_slider',
+  dots: false,
+  centerMode: false,
+  focusOnSelect: true,
+  arrows:false,
+  infinite:true,
+});
+
+
 });
 
 
@@ -76,7 +101,8 @@ $(".custom-option:first-of-type").hover(
       .removeClass("option-hover");
   }
 );
-$(".custom-select-trigger").on("click", function() {
+$("body").delegate(".custom-select-trigger",'click',function(){
+// $(".custom-select-trigger").on("click", function() {
   $("html").one("click", function() {
     $(".custom-select").removeClass("opened");
   });
@@ -85,7 +111,8 @@ $(".custom-select-trigger").on("click", function() {
     .toggleClass("opened");
   event.stopPropagation();
 });
-$(".custom-option").on("click", function() {
+$("body").delegate('.custom-option','click',function(){
+// $(".custom-option").on("click", function() {
   $(this)
     .parents(".custom-select-wrapper")
     .find("select")

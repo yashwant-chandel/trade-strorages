@@ -12,6 +12,9 @@ class Propertie extends Model
     public function media(){
         return $this->hasMany(Media::class,'property_id','id');
     }
+    public function featured_image(){
+        return $this->hasOne(Media::class,'property_id','id')->where('featured_image',1);
+    }
     public function address(){
         return $this->hasOne(Address::class,'id','address_id');
     }
