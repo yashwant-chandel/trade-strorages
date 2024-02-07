@@ -118,20 +118,20 @@
 
                         <div class="result_book">
                             <div class="result_hold">
-                                <ul>
+                                <ul id="storages_ul">
                                     @foreach($propertie->storages as $storage)
                                     <li>
                                         <ol>
                                             <li class="sizing">
                                                 <h5>{{ $storage->title ?? '' }}</h5>
+                                                <?php $features = json_decode($storage->features); ?>
+                                                @foreach($features as $feat)
+                                                <?php $featureget = App\Models\Feature::find($feat); ?>
                                                 <div class="climate d-flex gap-2">
                                                     <img src="{{ asset('Trade_Storage/assets/img/climate1.png') }}" alt="" />
-                                                    <p>Climate Controlled</p>
+                                                    <p>{{ $featureget->name ?? '' }}</p>
                                                 </div>
-                                                <div class="climate d-flex gap-2">
-                                                    <img src="{{ asset('Trade_Storage/assets/img/climate2.png') }}" alt="" />
-                                                    <p>1st Floor</p>
-                                                </div>
+                                                @endforeach
                                             </li>
                                             <li class="sale">
                                                 <div class="price">
@@ -206,7 +206,7 @@
                                 <?php $first = true; ?>
                                 @foreach($storage_types as $types)
                                 <p>
-                                    <input type="radio" class="storage_type" id="{{ $types->slug ?? '' }}" name="storage_types" data-slug="{{ $types->slug ?? '' }}" value="{{ $types->id ?? '' }}" @if($first == true) checked @endif/>
+                                    <input type="radio" class="storage_type" id="{{ $types->slug ?? '' }}" name="storage_types" data-slug="{{ $types->slug ?? '' }}" value="{{ $types->id ?? '' }}" />
                                     <?php $first = false; ?>
                                     <label for="{{ $types->slug ?? '' }}">{{ $types->name ?? '' }}</label>
                                 </p>
@@ -218,7 +218,7 @@
                         <h4>Sizes</h4>
                                 @foreach($storage_types[0]->sizes as $sizes)
                                 <div class="form-group">
-                                    <input type="checkbox" id="{{ $sizes->slug ?? '' }}" name="sizes[]" value="{{ $sizes->id ?? '' }}">
+                                    <input type="checkbox" id="{{ $sizes->slug ?? '' }}" class="sizes" name="sizes[]" value="{{ $sizes->id ?? '' }}">
                                     <label for="{{ $sizes->slug ?? '' }}">{{ $sizes->name ?? '' }}</label>
                                 </div>
                                 @endforeach
@@ -227,7 +227,7 @@
                             <h4>Unit Features</h4>
                             @foreach($storage_types[0]->features as $features)
                                 <div class="form-group">
-                                    <input type="checkbox" id="{{ $features->slug ?? '' }}" name="features[]" value="{{ $features->id ?? '' }}">
+                                    <input type="checkbox" id="{{ $features->slug ?? '' }}" class="features" name="features[]" value="{{ $features->id ?? '' }}">
                                     <label for="{{ $features->slug ?? '' }}">{{ $features->name ?? '' }}</label>
                                 </div>
                             @endforeach
@@ -328,8 +328,13 @@
     </section>
     <script>
         $(document).ready(function(){
+            category = '';
+            sizes = [];
+            features = [];
+            slug = "{{ $propertie->slug ?? '' }}";
             $('.storage_type').on('change',function(){
                 value = $(this).attr('data-slug');
+                category = $(this).val();
                $.ajax({
                 method: 'post',
                 url: '{{ url('getFeatures') }}',
@@ -338,7 +343,7 @@
                     checkboxes = '<h4>Unit Features</h4>';
                     $.each(response,function(key,val){
                         checkboxes += ` <div class="form-group">
-                                        <input type="checkbox" id="${val.slug}" name="features[]" value="${val.id}">
+                                        <input type="checkbox" id="${val.slug}" class="features" name="features[]" value="${val.id}">
                                         <label for="${val.slug}">${val.name}</label>
                                     </div>`;
                     })
@@ -353,15 +358,101 @@
                     checkboxes = '<h4>Sizes</h4>';
                     $.each(response,function(key,val){
                        checkboxes += `<div class="form-group">
-                                    <input type="checkbox" id="${val.slug}" name="sizes[]" value="${val.id}">
+                                    <input type="checkbox" id="${val.slug}" class="sizes" name="sizes[]" value="${val.id}">
                                     <label for="${val.slug}">${val.name}</label>
                             </div>`;
                     })
                     $('#sizes_form').html(checkboxes);
                 }
                 })
+                ajaxRequest(sizes,features,slug,category);
 
             })
         })
+            $("body").delegate(".sizes",'change',function(){
+                 val = $(this).val();
+                if($(this).prop('checked')){
+                    sizes.push(val);
+                }else{
+                    sizes = jQuery.grep(sizes, function(value) {
+                            return value != val;
+                    });
+                }
+                ajaxRequest(sizes,features,slug,category);
+
+            })
+            $("body").delegate(".features",'change',function(){
+                val = $(this).val();
+                if($(this).prop('checked')){
+                    features.push(val);
+                }else{
+                    features = jQuery.grep(features, function(value) {
+                            return value != val;
+                    });
+                }
+                ajaxRequest(sizes,features,slug,category);
+            })
+
+            function ajaxRequest(sizes,features,slug,category){
+              $.ajax({
+                    method: 'post',
+                    url: "{{ url('filterResponse') }}",
+                    data: { _token:"{{ csrf_token() }}",sizes:sizes,features:features,slug:slug,category:category },
+                    success:function(response){
+                        html = '';
+                       if(response.success){
+                        count = 0;
+                        $.each(response.success,function(key,val){
+                            features = response.features[count];
+                            feature_html = '';
+                            $.each(features,function(key,val){
+                                feature_html += `<div class="climate d-flex gap-2">
+                                                    <img src="{{ asset('Trade_Storage/assets/img/climate1.png') }}" alt="" />
+                                                    <p>${val.name}</p>
+                                                </div>`;
+                            })
+                            html += `<li>
+                                        <ol>
+                                            <li class="sizing">
+                                                <h5>${val.title}</h5>
+                                                    ${feature_html}
+                                            </li>
+                                            <li class="sale">
+                                                <div class="price">
+                                                    <h3>
+                                                        <sup>$</sup>${val.discount_price}<span>/mo</span>
+                                                        <span class="doller">$${val.regular_price}</span>
+                                                    </h3>
+                                                    <p>Online only price</p>
+                                                    <img style="display: block; margin-bottom: 5px"
+                                                        src="{{ asset('Trade_Storage/assets/img/sale.png') }}" alt="" />
+                                                    <img src="{{ asset('Trade_Storage/assets/img/prices.png') }}" alt="" />
+                                                </div>
+                                            </li>
+                                            <li class="rent_img">
+                                                <img src="{{ asset('Trade_Storage/assets/img/rent_img.png') }}" alt="" />
+                                            </li>
+                                            <li class="obligation">
+                                                <button>Hold Now</button>
+                                                <p>No Obligation</p>
+                                            </li>
+                                        </ol>
+                                    </li>`;
+                            count = count+1;
+                        });
+                        $('#storages_ul').html(html);
+                       }else if(response.error){
+                            $('#storages_ul').html(response.error);
+                       }
+                    }
+                })  
+            } 
+
+            // function getStorageFeature(ids){
+            //     $.ajax({
+            //         method: 'post',
+            //         url:'{{ url('') }}'
+            //     })
+            // }
     </script>
 @endsection

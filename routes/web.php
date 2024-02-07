@@ -31,10 +31,13 @@ use App\Http\Controllers\Admin\SiteContent;
 Route::get('/',[FrontHomeController::class,'index']);
 Route::post('getSizes',[FrontHomeController::class,'getSizes']);
 Route::post('getFeatures',[FrontHomeController::class,'getFeatures']);
+Route::post('filterResponse',[StorageSearchController::class,'filterResponse']);
+Route::post('inexFilterResponse',[StorageSearchController::class,'indexFilterResponse']);
 
 // Route::get('/test',[AdminDashController::class,'test']);
 Route::get('/storage-search',[StorageSearchController::class,'index']);
 Route::get('/storage-search/{slug}',[StorageSearchController::class,'StorageDetail']);
+
 
 Route::get('/admin-login',[AuthenticationController::class,'index']);
 Route::post('/loginprocc',[AuthenticationController::class,'loginProcc']);

@@ -7,6 +7,12 @@ if(isset($_GET['storage_type'])){
 }else{
     $storage_type_selected = '';
 }
+if(isset($_GET['location'])){
+    $location = $_GET['location'];
+}else{
+    $location = null;
+
+}
 
 ?>
 <ul class="find_breadcrumb">
@@ -55,37 +61,35 @@ if(isset($_GET['storage_type'])){
         <h3>
           Results for Storage locations near @if(isset($_GET['location'])) {{ $_GET['location'] }} @endif
         </h3>
+      
         <div class="row">
           <div class="col-md-9">
             <div class="result_box">
-              <div class="featured">
-                <div class="reslut_select">
+              <div class="featured" >
+                <div class="reslut_select" select_type="sizes" id="sizes_box">
                   <select
-                    name="location"
-                    id="featured"
+                    name="sizes"
+                    id="sizes"
+                    name="sizes"
                     class="custom-select sources"
-                    placeholder="Featured"
+                    placeholder="Sizes"
                   >
-                    <option value="1">one</option>
-                    <option value="2">two</option>
-                    <option value="3">three</option>
-                    <option value="4">Founder</option>
-                    <option value="5">sixes</option>
+                  @foreach($sizes_filter as $sizesf)
+                    <option value="{{ $sizesf->id ?? '' }}"@if(isset($_GET['sizes'])) @if($sizesf->slug == $_GET['sizes']) selected @endif @endif>{{ $sizesf->name ?? '' }}</option>
+                  @endforeach
                   </select>
                 </div>
                 <div class="reslut_select reslut_select2">
-                  <label for="#Closest">Sort by</label>
+                  <label for="orderBy">Sort by</label>
                   <select
-                    name="location"
-                    id="Closest"
+                    name="orderby"
+                    id="orderBy"
+                    name="orderBy"
                     class="custom-select sources"
                     placeholder="Closest"
                   >
-                    <option value="1">one</option>
-                    <option value="2">two</option>
-                    <option value="3">three</option>
-                    <option value="4">Founder</option>
-                    <option value="5">sixes</option>
+                    <option value="closeest">Closest</option>
+                    <option value="sizes">Sizes</option>
                   </select>
                   <div class="size_chart">
                     <a href="">Size Guide</a>
@@ -99,7 +103,7 @@ if(isset($_GET['storage_type'])){
               <div class="result_descp">
                 <div class="result_img">
                   <img src="{{ asset('property_images/'.$propertie->featured_image->image_name) }}" alt="" />
-                  <span>1</span>
+                  <span>{{ count($propertie->storages) }}</span>
                 </div>
                 <a href="{{ url('storage-search/'.$propertie->slug) }}">
                 <address>
@@ -122,8 +126,10 @@ if(isset($_GET['storage_type'])){
               </div>
               <div class="result_hold">
                 <ul>
+                  <?php $count = 0; ?>
                   @foreach($propertie->storages as $storages)
-                  <li>
+                  <?php $count++; ?>
+                  <li @if($count > 3) class="storage{{ $propertie->id ?? '' }}  d-none " @endif>
                     <ol>
                       <li class="sizing">
                         <h5>{{ $storages->title ?? '' }}</h5>
@@ -163,16 +169,20 @@ if(isset($_GET['storage_type'])){
                     </ol>
                   </li>
                   @endforeach
+                  @if(count($propertie->storages) > 3)
                   <div class="view_units">
                     <img src="" alt="" />
-                    <a href=""
+                    <a class="view_all_btn" data-id ="{{ $propertie->id ?? '' }}" href=""
                       ><span>+</span> View all units at this location</a
                     >
                   </div>
+                  @endif
                 </ul>
               </div>
             </div>
             @endforeach
+            @else
+            <h2>We weren’t able to find your location. Please enter your City, State or ZIP to see locations near you.</h2>
             @endif
             <!-- <div class="new_rental">
               <div class="container">
@@ -301,14 +311,12 @@ if(isset($_GET['storage_type'])){
               <div class="result_filter result_filter_last">
                 <h4>Unit Features</h4>
                 <form id="features_form">
+                  @foreach($feature_filter as $featuref)
                     <div class="form-group">
-                      <input type="checkbox" id="html">
-                      <label for="html">Climate Controlled</label>
-                    </div>
-                    <div class="form-group">
-                      <input type="checkbox" id="css">
-                      <label for="css">Drive Up Access</label>
-                    </div>
+                      <input type="checkbox" class="features_filter" id="{{ $featuref->slug ?? '' }}" name="features" value="{{ $featuref->id ?? '' }}">
+                      <label for="{{ $featuref->slug ?? '' }}">{{ $featuref->name ?? ''}}</label>
+                    </div> 
+                  @endforeach
               </div>
             </div>
           </div>
@@ -318,8 +326,14 @@ if(isset($_GET['storage_type'])){
 
     <script>
         $(document).ready(function(){
+          features = [];
+          size = null;
+          category = null;
+          location1 = "{{ $location }}";
+         
             $('.storage_type').on('change',function(){
                 value = $(this).val();
+                category = value;
                $.ajax({
                 method: 'post',
                 url: '{{ url('getFeatures') }}',
@@ -328,15 +342,83 @@ if(isset($_GET['storage_type'])){
                     checkboxes = '';
                     $.each(response,function(key,val){
                         checkboxes += ` <div class="form-group">
-                                        <input type="checkbox" id="${val.slug}" name="features[]" value="${val.slug}">
+                                        <input type="checkbox" id="${val.slug}" class="features_filter" name="features" value="${val.id}">
                                         <label for="${val.slug}">${val.name}</label>
                                     </div>`;
                     })
                     $('#features_form').html(checkboxes);
                 }
                })
-
+               $.ajax({
+                method: 'post',
+                url: '{{ url('getSizes') }}',
+                data: { _token:"{{ csrf_token() }}",value:value },
+                success: function(response){
+                  
+                    checkboxes = '';
+                    select_box = ''
+                    span_html =''
+                    $.each(response,function(key,val){
+                      select_box += `<option value="${val.id}">${val.name}</option>`;
+                      span_html += `<span class="custom-option undefined" data-value="${val.id}">${val.name}</span>`;
+                    })
+                   html = `<div class="custom-select-wrapper">
+                          <select name="sizes" id="sizes" class="custom-select sources" placeholder="Sizes" style="display: none;">
+                                 ${select_box}       
+                            </select>
+                      <div class="custom-select sources">
+                          <span class="custom-select-trigger">Sizes</span>
+                              <div class="custom-options">
+                               ${span_html} 
+                               </div>
+                        </div>
+                    </div>`;
+                    $('#sizes_box').html(html);
+                }
+                })
+               ajaxRequest(category,features,size,location1)
             })
+            $('body').delegate('.features_filter','change',function(){
+              val = $(this).val();
+              console.log(val);
+              if($(this).prop('checked')){
+              features.push(val);
+              }else{
+                features = jQuery.grep(features, function(value) {
+                            return value != val;
+                    });
+              }
+              ajaxRequest(category,features,size,location1)
+            })
+            ////sizes filter code
+            $("body").delegate('.custom-option','click',function(){
+               parent = $(this).parent().parent().parent().parent();
+                if(parent.attr('select_type') == 'sizes'){
+                  size = $(this).attr('data-value');
+                  
+                  ajaxRequest(category,features,size,location1);
+                }
+            });
+        })
+
+        function ajaxRequest(category,features,size,location1){
+            $.ajax({
+              method: 'post',
+              url: '{{ url('inexFilterResponse') }}',
+              data:{ _token:"{{ csrf_token() }}",category:category,features:features,size:size,location:location1 },
+              success:function(response){
+                console.log(response[0].storages);
+              }
+            })
+
+        }
+      
+        $(document).ready(function(){
+          $("body").delegate('.view_all_btn','click',function(e){
+            e.preventDefault();
+            id = $(this).attr('data-id');
+           $('.storage'+id).toggleClass('d-none');
+          })
         })
     </script>
 @endsection

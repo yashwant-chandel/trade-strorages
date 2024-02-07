@@ -173,7 +173,7 @@
                                     $.each(response[0],function(key,val){
                                         html = `<li>
                                                                         <div class="custom-control custom-control-sm custom-checkbox">
-                                                                            <input type="checkbox" class="custom-control-input" id="${val.name}" name="sizes" value="${val.id}">
+                                                                            <input type="radio" class="custom-control-input" id="${val.name}" name="sizes" value="${val.id}">
                                                                             <label class="custom-control-label" for="${val.name}">${val.name}</label>
                                                                         </div>
                                                                     </li>`;

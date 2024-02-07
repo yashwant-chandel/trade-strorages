@@ -65,6 +65,7 @@ $(".custom-select").each(function() {
   var classes = $(this).attr("class"),
     id = $(this).attr("id"),
     name = $(this).attr("name");
+   
   var template = '<div class="' + classes + '">';
   template +=
     '<span class="custom-select-trigger">' +
@@ -74,8 +75,9 @@ $(".custom-select").each(function() {
   $(this)
     .find("option")
     .each(function() {
+     
       template +=
-        '<span class="custom-option ' +
+        '<span class="custom-option '+
         $(this).attr("class") +
         '" data-value="' +
         $(this).attr("value") +
