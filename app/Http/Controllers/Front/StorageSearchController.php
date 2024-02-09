@@ -106,7 +106,7 @@ class StorageSearchController extends Controller
         // return $request->features;
         if($request->location){
             $location = $request->location;
-            $query = Propertie::whereHas('address',function($query1) use ($location){ $query1->where('full_address',$location)->orWhere('full_address','like',$location.'%')->orWhere('full_address','like','%'.$location)->orWhere('full_address','like','%'.$location.'%');  });
+            $query = Propertie::with('featured_image','address')->whereHas('address',function($query1) use ($location){ $query1->where('full_address',$location)->orWhere('full_address','like',$location.'%')->orWhere('full_address','like','%'.$location)->orWhere('full_address','like','%'.$location.'%');  });
         }
         if($request->category){
             $category = Category::where('slug',$request->category)->first()->id;

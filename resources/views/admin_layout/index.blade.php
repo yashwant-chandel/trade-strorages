@@ -140,9 +140,25 @@
                                         <li class="nk-menu-item">
                                             <a href="{{ url('admin-dashboard/site-features') }}" class="nk-menu-link"><span class="nk-menu-text">Storage Features</span></a>
                                         </li>
+                                        <li class="nk-menu-item">
+                                            <a href="{{ url('admin-dashboard/facilitiesContent/') }}" class="nk-menu-link"><span class="nk-menu-text">Storage Facility</span></a>
+                                        </li>
                                     </ul>
                                 </li>
-                             
+                                <li class="nk-menu-item has-sub">
+                                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                                        <span class="nk-menu-icon"><i class="fas fa-network-wired"></i></span>
+                                        <span class="nk-menu-text">Testonomials</span>
+                                    </a>
+                                    <ul class="nk-menu-sub">
+                                        <li class="nk-menu-item">
+                                            <a href="{{ url('admin-dashboard/testimonials/add') }}" class="nk-menu-link"><span class="nk-menu-text">Add Testonomials</span></a>
+                                        </li>
+                                        <li class="nk-menu-item">
+                                            <a href="{{ url('admin-dashboard/testimonials') }}" class="nk-menu-link"><span class="nk-menu-text">Testonomials list</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
                         </div>
                     </div>

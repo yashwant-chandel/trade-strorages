@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SiteMeta::class);
         $this->call(AdminCredentials::class);
         $this->call(HomeContent::class);
+        $this->call(FacilityContent::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

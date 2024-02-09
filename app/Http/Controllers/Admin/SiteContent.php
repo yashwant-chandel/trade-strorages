@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\HomeContent;
 use App\Models\SiteFeature;
+use App\Models\FacilityContent;
 
 class SiteContent extends Controller
 {
@@ -110,7 +111,63 @@ class SiteContent extends Controller
         return redirect()->back()->with('success','Successfully deleted site feature');
    }
    public function facilitiesContent(){
-        
-        return view('Admin.site_content.facilitiy');
+        $data = FacilityContent::where('status',1)->first();
+
+        return view('Admin.site_content.facilitiy',compact('data'));
+   }
+   public function facilitySubmit(Request $request){
+        echo '<pre>';
+        print_r($request->all());
+        echo '</pre>';
+        // die();
+        $data = FacilityContent::where('status',1)->first();
+        if($request->action == 'banner'){
+            $data->banner_text = $request->banner_text;
+            if($request->hasFile('image')){
+                $data->banner_image = $this->uploadImage($request);
+            }
+        }elseif($request->action == 'second_section'){
+            $data->second_section_title = $request->second_section_title;
+            if($request->hasFile('icons')){
+            $description = ['images' => $this->uploadImage($request),'text' => json_encode($request->text) ];
+            $data->second_section_description = json_encode($description);
+            }
+        }elseif($request->action == 'third_section'){
+            $data->third_section_title = $request->third_section_title;
+            $data->third_section_left_text = $request->left_text;
+            $data->third_section_left_text = $request->right_text;
+            if($request->hasFile('image')){
+            $data->third_section_image = $this->uploadImage($request);
+            }
+           
+        }elseif($request->action == 'fourth_section'){
+            $data->fourth_section_title = $request->fourth_section_title;
+            $data->fourth_section_right_image = $this->uploadImage('image');
+            $data->fourth_section_left_text = json_encode(['title'=>$request->left_title,'description'=>$request->left_description]);
+
+        }elseif($request->action == 'fifth_section'){
+            $data->fifth_section_title = $request->fifth_section_title;
+            $data->fifth_section_text = json_encode($request->features);
+        }
+        $data->update();
+        return redirect()->back()->with('success','Successfully updated');
+   }
+
+   public function uploadImage($request){
+    if($request->hasFile('image')){
+        $file = $request->file('image');
+        $filename = 'Img'.time().rand(1,100).'.'.$file->extension();
+        $file->move(public_path('site_images'),$filename);
+        return $filename;
+    }
+    if($request->hasFile('icons')){
+        $images = [];
+        foreach($request->file('icons') as $file){
+            $filename = 'Img'.time().rand(1,100).'.'.$file->extension();
+            $file->move(public_path('site_images'),$filename);
+            array_push($images,$filename);
+        }
+        return $images;
+    }
    }
 }

@@ -5,7 +5,7 @@
             <div class="banner_content">
                 <h2>Trade Storage Blog</h2>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Enter City, State or Zip " aria-describedby="basic-addon2">
+                    <input type="text" class="form-control" placeholder="Enter City, State or Zip " id="search-form" aria-describedby="basic-addon2">
                     <span class="input-group-text" id="basic-addon2">Search</span>
                 </div>
             </div>

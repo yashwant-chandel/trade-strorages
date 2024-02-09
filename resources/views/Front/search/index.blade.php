@@ -36,6 +36,7 @@ if(isset($_GET['location'])){
                   <input
                     type="text" name="location"
                     placeholder="Enter city, state or zipcode"
+                    value="{{ $location ?? '' }}"
                   />
                   <input type="submit" name="" id="" value="Search" />
                   </form>
@@ -407,7 +408,99 @@ if(isset($_GET['location'])){
               url: '{{ url('inexFilterResponse') }}',
               data:{ _token:"{{ csrf_token() }}",category:category,features:features,size:size,location:location1 },
               success:function(response){
-                console.log(response[0].storages);
+                html = '';
+                $.each(response,function(key,value){
+                  storages = '';
+                  storages_data = value.storages;
+                  num = 0;
+                 $.each(storages_data,function(key1,value1){
+                  if(num > 3){
+                    classname = `storage${value.id} d-none`;
+                  }else{
+                    classname = '';
+                  }
+                  num = num+1;
+                          storages += `<li ${classname}>
+                                                <ol>
+                                                  <li class="sizing">
+                                                    <h5>${value1.title}</h5>
+                                                    
+                                                  </li>
+                                                  <li class="sale">
+                                                    <div class="price">
+                                                      <h3>
+                                                        <sup>$</sup>${value1.discount_price}<span>/mo</span>
+                                                        <span class="doller">$${value1.discount_price}</span>
+                                                      </h3>
+                                                      <p>Online only price</p>
+                                                      <img
+                                                        style="display: block; margin-bottom: 5px"
+                                                        src="{{ asset('Trade_Storage/assets/img/sale.png') }}"
+                                                        alt=""
+                                                      />
+                                                      <img src="{{ asset('Trade_Storage/assets/img/prices.png') }}" alt="" />
+                                                    </div>
+                                                  </li>
+                                                  <!-- <li class="rent_img">
+                                                    <img src="{{ asset('Trade_Storage/assets/img/rent_img.png') }}" alt="" />
+                                                  </li> -->
+                                                  <li class="obligation">
+                                                    <button>Hold Now</button>
+                                                    <p>No Obligation</p>
+                                                  </li>
+                                                </ol>
+                                              </li>`;
+                                      
+                        });
+       
+                        
+                          if(value.storages.length > 3){
+                            extra_div = `<div class="view_units">
+                                                <img src="" alt="" />
+                                                <a class="view_all_btn" data-id ="${value.id}" href=""
+                                                  ><span>+</span> View all units at this location</a
+                                                >
+                                              </div>`
+                          }else{
+                            extra_div = ''
+                          }
+
+                          propertie = ` <div class="result_book">
+                                  <div class="result_descp">
+                                    <div class="result_img">
+                                      <img src="{{ asset('property_images/') }}/${value.featured_image.image_name}" alt="" />
+                                      <span>${value.storages.length}</span>
+                                    </div>
+                                    <a href="{{ url('storage-search/') }}/${value.slug}">
+                                    <address>
+                                      ${value.address.address},<br />
+                                      ${value.address.city},
+                                      ${value.address.state}
+                                      ${value.address.pincode}
+                                    </address>
+                                    </a>
+                                    <div class="stars d-flex align-items-center gap-1">
+                                      <img src="{{ asset('Trade_Storage/assets/img/Star1.png') }}" alt="" />
+                                      <img src="{{ asset('Trade_Storage/assets/img/Star1.png') }}" alt="" />
+                                      <img src="{{ asset('Trade_Storage/assets/img/Star1.png') }}" alt="" />
+                                      <img src="{{ asset('Trade_Storage/assets/img/Star1.png') }}" alt="" />
+                                      <img src="{{ asset('Trade_Storage/assets/img/Star1.png') }}" alt="" />
+                                    </div>
+                                    <div class="miles">
+                                      <p>1.7 miles</p>
+                                    </div>
+                                  </div>
+                                  <div class="result_hold">
+                                    <ul>
+                                      ${storages}
+                                      ${extra_div}
+                                    </ul>
+                                  </div>
+                                </div>`;
+                          console.log(propertie);
+                })
+
+
               }
             })
 

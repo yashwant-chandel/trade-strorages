@@ -25,10 +25,16 @@ class FrontBlogController extends Controller
     }
     public function deatilPage($slug){
         $blog_data = Blog::where('slug',$slug)->first();
+        if(!$blog_data){
+            abort(404);
+        }
+        $next_blog = Blog::where([['id','>',$blog_data->id]])->first();
+        $prev_blog = Blog::where([['id','<',$blog_data->id]])->orderBy('id','desc')->first();
+   
         $categories = BlogCategory::where('status',1)->get();
         $related_blogs = Blog::where([['category_id',$blog_data->category_id],['id','!=',$blog_data->id]])->get();
 
-        return view('Front.blogs.blog_detail',compact('blog_data','related_blogs','categories'));
+        return view('Front.blogs.blog_detail',compact('blog_data','related_blogs','categories',''));
     }
 
 }

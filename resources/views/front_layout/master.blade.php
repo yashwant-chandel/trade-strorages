@@ -166,6 +166,15 @@
                 <p>Copyright ©2024 Trade Storage.</p>
             </div>
         </footer>
+        <script>
+            $(document).ready(function(){
+                $('#basic-addon2').on('click',function(){
+                     search = $('#search-form').val();
+                    // console.log(search);
+                    location.href = "{{ url('storage-search?location=') }}"+search;
+                })
+            })
+        </script>
 
          <!-- bootstrap cdn -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

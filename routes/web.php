@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Expenses\ExpensesController;
 use App\Http\Controllers\Admin\Residents\ResidentsLeaseController;
 use App\Http\Controllers\Admin\Account\AccountSettingController;
 use App\Http\Controllers\Admin\Blog\AdminBlogController;
+use App\Http\Controllers\Admin\Testimonials\TestimonialsController;
 
 use App\Http\Controllers\Front\StorageSearchController;
 use App\Http\Controllers\Front\FrontHomeController;
@@ -104,6 +105,12 @@ Route::get('admin-dashboard/blogs/categories',[AdminBlogController::class,'categ
 Route::post('admin-dashboard/blogs/categories/submitProcc',[AdminBlogController::class,'categorySubmit']);
 Route::get('admin-dashboard/blogs/categories/delete/{id}',[AdminBlogController::class,'categoryDelete']);
 
+///Testonomials
+Route::get('admin-dashboard/testimonials',[TestimonialsController::class,'index']);
+Route::get('admin-dashboard/testimonials/add/{id?}',[TestimonialsController::class,'add']);
+Route::post('admin-dashboard/testimonials/addProcc',[TestimonialsController::class,'addProcc']);
+Route::get('admin-dashboard/testimonials/delete/{id?}',[TestimonialsController::class,'delete']);
+
 ////Applications
 Route::get('admin-dashboard/applications',[ApplicationController::class,'index'])->name('applications');
 
@@ -131,6 +138,6 @@ Route::post('admin-dashboard/featureSubmit',[SiteContent::class,'featureSubmit']
 Route::get('admin-dashboard/featureDelete/{id}',[SiteContent::class,'featureDelete']);
 
 Route::get('admin-dashboard/facilitiesContent/',[SiteContent::class,'facilitiesContent']);
-
+Route::post('admin-dashboard/facilitiesContent/submitProcc',[SiteContent::class,'facilitySubmit']);
 
 });
