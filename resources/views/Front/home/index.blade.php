@@ -1,5 +1,4 @@
 @extends('front_layout.master')
-
 @section('content')
 
     <section class="top_bar">

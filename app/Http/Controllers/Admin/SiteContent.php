@@ -109,4 +109,8 @@ class SiteContent extends Controller
         $feature->delete();
         return redirect()->back()->with('success','Successfully deleted site feature');
    }
+   public function facilitiesContent(){
+        
+        return view('Admin.site_content.facilitiy');
+   }
 }

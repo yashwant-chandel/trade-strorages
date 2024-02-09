@@ -65,7 +65,6 @@ $(".custom-select").each(function() {
   var classes = $(this).attr("class"),
     id = $(this).attr("id"),
     name = $(this).attr("name");
-   
   var template = '<div class="' + classes + '">';
   template +=
     '<span class="custom-select-trigger">' +
@@ -75,9 +74,8 @@ $(".custom-select").each(function() {
   $(this)
     .find("option")
     .each(function() {
-     
       template +=
-        '<span class="custom-option '+
+        '<span class="custom-option ' +
         $(this).attr("class") +
         '" data-value="' +
         $(this).attr("value") +
@@ -103,8 +101,8 @@ $(".custom-option:first-of-type").hover(
       .removeClass("option-hover");
   }
 );
-$("body").delegate(".custom-select-trigger",'click',function(){
 // $(".custom-select-trigger").on("click", function() {
+  $("body").delegate(".custom-select-trigger","click",function(){
   $("html").one("click", function() {
     $(".custom-select").removeClass("opened");
   });
@@ -113,7 +111,7 @@ $("body").delegate(".custom-select-trigger",'click',function(){
     .toggleClass("opened");
   event.stopPropagation();
 });
-$("body").delegate('.custom-option','click',function(){
+$("body").delegate(".custom-option","click",function(){
 // $(".custom-option").on("click", function() {
   $(this)
     .parents(".custom-select-wrapper")

@@ -11,9 +11,12 @@ use App\Http\Controllers\Admin\Maintance\MaintanceController;
 use App\Http\Controllers\Admin\Expenses\ExpensesController;
 use App\Http\Controllers\Admin\Residents\ResidentsLeaseController;
 use App\Http\Controllers\Admin\Account\AccountSettingController;
+use App\Http\Controllers\Admin\Blog\AdminBlogController;
 
 use App\Http\Controllers\Front\StorageSearchController;
 use App\Http\Controllers\Front\FrontHomeController;
+use App\Http\Controllers\Front\FrontBlogController;
+use App\Http\Controllers\Front\FrontMetaPagesController;
 use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\Admin\SiteContent;
 
@@ -44,6 +47,15 @@ Route::post('/loginprocc',[AuthenticationController::class,'loginProcc']);
 Route::get('/logout',[AuthenticationController::class,'logout']);
 
 Route::post('stripe/webhook',[StripeWebhookController::class,'index']);
+
+
+///blog
+Route::get('blogs/{slug?}',[FrontBlogController::class,'index']);
+Route::get('blogs-detail/{slug}',[FrontBlogController::class,'deatilPage']);
+
+Route::get('storage-facilities',[FrontMetaPagesController::class,'storageFacilities']);
+Route::get('support',[FrontMetaPagesController::class,'support']);
+Route::get('company-info',[FrontMetaPagesController::class,'companyInfo']);
 
 //admin
 Route ::group(['middleware' =>['admin']],function(){
@@ -82,6 +94,15 @@ Route::post('admin-dashboard/storage/updateProcc',[PropertiesController::class,'
 Route::get('admin-dashboard/storage/delete/{id}',[PropertiesController::class,'storageDelete']);
 Route::get('admin-dashboard/storage/update/{id}',[PropertiesController::class,'updateStorage']);
 
+///blogs
+Route::get('admin-dashboard/blogs',[AdminBlogController::class,'index']);
+Route::get('admin-dashboard/blogs/add/{id?}',[AdminBlogController::class,'add']);
+Route::post('admin-dashboard/blogs/submitProcc',[AdminBlogController::class,'submitProcc']);
+Route::get('admin-dashboard/blog/delete/{id}',[AdminBlogController::class,'deleteBlog']);
+
+Route::get('admin-dashboard/blogs/categories',[AdminBlogController::class,'categories']);
+Route::post('admin-dashboard/blogs/categories/submitProcc',[AdminBlogController::class,'categorySubmit']);
+Route::get('admin-dashboard/blogs/categories/delete/{id}',[AdminBlogController::class,'categoryDelete']);
 
 ////Applications
 Route::get('admin-dashboard/applications',[ApplicationController::class,'index'])->name('applications');
@@ -108,5 +129,8 @@ Route::post('admin-dashboard/site-content/submitProcc',[SiteContent::class,'save
 Route::get('admin-dashboard/site-features',[SiteContent::class,'features']);
 Route::post('admin-dashboard/featureSubmit',[SiteContent::class,'featureSubmit']);
 Route::get('admin-dashboard/featureDelete/{id}',[SiteContent::class,'featureDelete']);
+
+Route::get('admin-dashboard/facilitiesContent/',[SiteContent::class,'facilitiesContent']);
+
 
 });

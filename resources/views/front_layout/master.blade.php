@@ -12,6 +12,7 @@
 
         <!-- <link rel="stylesheet" href="assets/css/style.css" /> -->
         <link rel="stylesheet" href="{{ asset('Trade_Storage/assets/css/main.css') }}" />
+        <link rel="stylesheet" href="{{ asset('Trade_Storage/assets/css/custom.css') }}" />
         <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
        
         <title>Landing page</title>
@@ -35,10 +36,10 @@
                         <div class="header_links">
                             <ul class="nav_list d-flex">
                                 <li>
-                                    <a href="">Support</a>
+                                    <a href="{{ url('support') }}">Support</a>
                                 </li>
                                 <li>
-                                    <a href="">Company Info</a>
+                                    <a href="{{ url('company-info') }}">Company Info</a>
                                 </li>
                             </ul>
                             <ul class="links_contact">
@@ -133,7 +134,10 @@
                                     <a href="">Size Guide </a>
                                 </li>
                                 <li>
-                                    <a href="">Trade Storage Blog </a>
+                                    <a href="{{ url('blogs') }}">Trade Storage Blog </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('storage-facilities') }}">Storage Facilities </a>
                                 </li>
                             </ul>
                         </div>

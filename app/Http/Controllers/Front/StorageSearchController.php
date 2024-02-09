@@ -112,10 +112,10 @@ class StorageSearchController extends Controller
             $category = Category::where('slug',$request->category)->first()->id;
             $query->whereHas('storages',function($query2) use ($category){ $query2->where('category_id',$category); })->with('storages',function($query6) use ($category){ $query6->where('category_id',$category); });
         }
-        if($request->features){
-            $feature = json_encode($request->features);
-            $query->whereHas('storages',function($query3) use ($feature){ $query3->whereJsonContains('features',$feature);  })->with('storages',function($query7) use ($feature){ $query7->whereJsonContains('features',$feature); });
-        }
+        // if($request->features){
+        //     $feature = json_encode($request->features);
+        //     $query->whereHas('storages',function($query3) use ($feature){ $query3->whereJsonContains('features',$feature);  })->with('storages',function($query7) use ($feature){ $query7->whereJsonContains('features',$feature); });
+        // }
         if($request->size){
             $size = $request->size;
             $query->whereHas('storages',function($query4) use ($size){ $query4->where('size_id',$size); })->with('storages',function($query8) use ($size){ $query8->where('size_id',$size); });
