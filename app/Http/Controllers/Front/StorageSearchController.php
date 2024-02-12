@@ -103,6 +103,12 @@ class StorageSearchController extends Controller
         return $request->all();
     }
     public function indexFilterResponse(Request $request){
+        if($request->action == 'getfeatures'){
+            $storage = Storage::find($request->id);
+            $features_ids = json_decode($storage->features);
+            $features = Feature::whereIn('id',$features_ids)->get();
+            return response()->json($features);
+        }
         // return $request->features;
         if($request->location){
             $location = $request->location;

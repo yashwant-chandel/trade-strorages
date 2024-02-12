@@ -18,7 +18,7 @@ class FrontBlogController extends Controller
         $blogs = Blog::where('status',1)->orderBy('created_at','desc')->get();
         }
 
-        return view('Front.blogs.index',compact('categories','blogs'));
+        return view('Front.blogs.index',compact('categories','blogs','slug'));
     }
     public function deatilPage($slug){
         $blog_data = Blog::where('slug',$slug)->first();
@@ -31,7 +31,7 @@ class FrontBlogController extends Controller
         $categories = BlogCategory::where('status',1)->get();
         $related_blogs = Blog::where([['category_id',$blog_data->category_id],['id','!=',$blog_data->id]])->get();
 
-        return view('Front.blogs.blog_detail',compact('blog_data','related_blogs','categories',''));
+        return view('Front.blogs.blog_detail',compact('blog_data','related_blogs','categories'));
     }
 
 }

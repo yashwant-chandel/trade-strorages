@@ -19,4 +19,13 @@ class FrontMetaPagesController extends Controller
 
         return view('Front.meta.company_info');
     }
+    public function sizeGuide(){
+
+        return view('Front.meta.size_guide');
+    }
+    public function helpCenter(){
+
+        return view('Front.meta.help_center');
+    }
+  
 }

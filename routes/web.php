@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\Residents\ResidentsLeaseController;
 use App\Http\Controllers\Admin\Account\AccountSettingController;
 use App\Http\Controllers\Admin\Blog\AdminBlogController;
 use App\Http\Controllers\Admin\Testimonials\TestimonialsController;
-
+use App\Http\Controllers\Front\ReservationController;
 use App\Http\Controllers\Front\StorageSearchController;
 use App\Http\Controllers\Front\FrontHomeController;
 use App\Http\Controllers\Front\FrontBlogController;
@@ -49,6 +49,10 @@ Route::get('/logout',[AuthenticationController::class,'logout']);
 
 Route::post('stripe/webhook',[StripeWebhookController::class,'index']);
 
+////reservation
+
+Route::get('/reservation',[ReservationController::class,'index']);
+Route::get('/confirmation',[ReservationController::class,'confirmation']);
 
 ///blog
 Route::get('blogs/{slug?}',[FrontBlogController::class,'index']);
@@ -57,6 +61,8 @@ Route::get('blogs-detail/{slug}',[FrontBlogController::class,'deatilPage']);
 Route::get('storage-facilities',[FrontMetaPagesController::class,'storageFacilities']);
 Route::get('support',[FrontMetaPagesController::class,'support']);
 Route::get('company-info',[FrontMetaPagesController::class,'companyInfo']);
+Route::get('size-guide',[FrontMetaPagesController::class,'sizeGuide']);
+Route::get('help-center',[FrontMetaPagesController::class,'helpCenter']);
 
 //admin
 Route ::group(['middleware' =>['admin']],function(){

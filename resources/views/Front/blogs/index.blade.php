@@ -5,8 +5,8 @@
             <div class="banner_content">
                 <h2>Trade Storage Blog</h2>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Enter City, State or Zip " id="search-form" aria-describedby="basic-addon2">
-                    <span class="input-group-text" id="basic-addon2">Search</span>
+                    <input type="text" class="form-control search_input_val" placeholder="Enter City, State or Zip " id="search-form" aria-describedby="basic-addon2">
+                    <span class="input-group-text search_banner_btn" id="basic-addon2">Search</span>
                 </div>
             </div>
         </div>
@@ -17,7 +17,8 @@
             <div class="row">
                 <div class="col-lg-9">
                     <div class="blogs_right">
-                        <span>News</span>
+                        <span>{{ $slug ?? '' }}</span>
+                        @if($blogs->isNotEmpty())
                         <h3>Most Recent Blog Posts</h3>
                         <div class="blog_grid">
                             @foreach($blogs as $blog)
@@ -29,10 +30,10 @@
                             </div>
                             </a>
                             @endforeach
-                            @if($blogs->isEmpty())
-                            <h4>Currently there is no blog.</h4>
-                            @endif
                         </div>
+                       @else
+                            <h4>Currently there is no blog posts.</h4>
+                        @endif
                         <!-- <div class="pagenavigation_wreap">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
@@ -122,8 +123,8 @@
                         <div class="blogs_find">
                             <h4>Find Storage Near You</h4>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Enter City, State or Zip" aria-describedby="basic-addon2">
-                                <span class="input-group-text" id="basic-addon2">Search</span>
+                                <input id="search_value" type="text" class="form-control " placeholder="Enter City, State or Zip" aria-describedby="basic-addon2">
+                                <span class="input-group-text " id="basic-addon2">Search</span>
                             </div>
                         </div>
                     </div>
@@ -131,4 +132,5 @@
             </div>
         </div>
     </section>
+    
 @endsection

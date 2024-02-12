@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+    <title>reservation page</title>
+</head>
+<body>
+
+    <header class="main_header">
+        <div class="header_cont">
+            <div class="container">
+                <nav class="navbar navbar-expand-xl">
+                    <a class="navbar-brand" href="#">
+                        <div class="header_logo">
+                            <img src="assets/img/Trade-logo.png" alt="" />
+                        </div>
+                    </a>
+                    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="bars bar1 navbar-toggler-icon"></span>
+                        <span class="bars bar2 navbar-toggler-icon"></span>
+                        <span class="bars bar3 navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item hrd_text">
+                                <a class="nav-link active" aria-current="page" href="#">Support</a>
+                            </li>
+                            <li class="nav-item hrd_text">
+                                <a class="nav-link" href="#">Company Info</a>
+                            </li>
+                            <li class="nav-item hrd_text">
+                                <a class="nav-link" href="#">Pricing</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link cntc_link" href="tel:+91 1244830593">
+                                    <img src="assets/img/phone.png" alt="" />
+                                    800-688-8057
+                                </a>
+                            </li>
+                            <li class="nav-item live_wreap">
+                                <a class="nav-link cntc_link" href="">
+                                    <img src="assets/img/live.png" alt="" />
+                                    Live Chat
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn nav-link cntc_link" href="">
+                                    <img src="assets/img/account.png" alt="" />
+                                    My Account
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="reservation_wrapper p_100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="reservation_hd">
+                        <h2>Make Reservation</h2>
+                        <div class="mbship_top_step nav nav-pills">
+                            <li class="tab-pills active"><div class="top_step"><span>1</span> Personal info</div></li>
+                            <li class="tab-pills"><div class="top_step"><span>2</span> Lease Agreement</div></li>
+                            <li class="tab-pills"><div class="top_step"><span>3</span> Payment</div></li>
+                            <li class="tab-pills"><div class="top_step"><span>4</span> Confirm</div></li>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="mbship_step_cont">
+                        <div class="tab d-none">
+                            <form class="row">
+                                <div class="col-lg-12">
+                                    <div class="pet_info_hd">
+                                        <h4>Personal info</h4>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="from_gp">
+                                        <label>First Name *</label>
+                                        <input type="text" class="form-control" name="" placeholder="Enter your name">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="from_gp">
+                                        <label>Last Name *</label>
+                                        <input type="text" class="form-control" name="" placeholder="Enter your name">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="from_gp">
+                                        <label>Move-In Date *</label>
+                                        <input type="Date" class="form-control" name="" placeholder="Automatically filled ">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="from_gp">
+                                        <label>Phone Number *</label>
+                                        <input type="Number" class="form-control" name="" placeholder="Enter your number">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="from_gp">
+                                        <label>Email *</label>
+                                        <input type="email" class="form-control" name="" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="from_gp">
+                                        <label for="inputState" class="form-label">Country</label>
+                                        <select id="inputState" class="form-select">
+                                            <option selected>Country/Region</option>
+                                            <option>USA</option>
+                                            <option>USA</option>
+                                            <option>USA</option>
+                                        </select>
+                                    </div>  
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="from_gp">
+                                        <label for="inputState" class="form-label">State</label>
+                                        <select id="inputState" class="form-select">
+                                            <option selected>State</option>
+                                            <option>lorem</option>
+                                            <option>lorem</option>
+                                            <option>lorem</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="from_gp">
+                                        <label>City *</label>
+                                        <input type="text" class="form-control" name="" placeholder="City">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="from_gp">
+                                        <label>Address *</label>
+                                        <input type="text" class="form-control" name="" placeholder="Address">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="from_gp">
+                                        <label>Address 2 *</label>
+                                        <input type="text" class="form-control" name="" placeholder="Address 2">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-check p-0">
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4">
+                                        <label class="form-check-label" for="flexRadioDefault4">
+                                            Please text me about my reservation.
+                                            <span>Message and data rates may apply.</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="membership_ft_btn">
+                                <div class="d-flex text-start">
+                                    <button type="button" id="back_button" class="btn btn-link" onclick="back()">Back</button>
+                                    <button type="button" id="next_button" class="btn cta ms-auto" onclick="next()">Hold Unit</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab d-none">
+                            <form>
+                                <div class="form-check p-0">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5">
+                                    <label class="form-check-label" for="flexRadioDefault5">
+                                        Please text me about my reservation.
+                                        <span>Message and data rates may apply.</span>
+                                    </label>
+                                </div>
+                            </form>
+                            <div class="membership_ft_btn">
+                                <div class="d-flex text-start">
+                                    <button type="button" id="back_button" class="btn btn-link" onclick="back()">Back</button>
+                                    <button type="button" id="next_button" class="btn cta ms-auto" onclick="next()">Next</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab d-none">
+                            <form>
+                                <div class="col-lg-12">
+                                    <div class="pet_info_hd">
+                                        <h4>Payment</h4>
+                                    </div>
+                                </div>
+                                <div class="paylatter_bg">
+                                    <div class="paylatter_wrapper">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault5" checked>
+                                            <label class="form-check-label" for="flexRadioDefault5">
+                                                Credit/Debit Card
+                                            </label>
+                                        </div>
+                                        <div class="pay_card">
+                                            <ul>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="assets/img/pay_1.svg" alt="">
+                                                    </a>   
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="assets/img/pay_2.svg" alt="">
+                                                    </a>   
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="assets/img/pay_3.svg" alt="">
+                                                    </a>   
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <img src="assets/img/pay_4.svg" alt="">
+                                                    </a>   
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="row border-0">
+                                        <div class="col-lg-12">
+                                            <div class="from_gp">
+                                                <input type="number" class="form-control" id="number" placeholder="Card Number">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="from_gp">
+                                                <input type="number" class="form-control" id="number" placeholder="Name On Card">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="from_gp">
+                                                <input type="number" class="form-control" id="number" placeholder="Expiration Date(MM/YY)">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="from_gp">
+                                                <input type="number" class="form-control" id="number" placeholder="Security Code">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="pay_online_wreap">
+                                    <li>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault6">
+                                            <label class="form-check-label" for="flexRadioDefault6">
+                                                Pay With Paypal
+                                            </label>
+                                        </div>
+                                        <img src="assets/img/pay_5.svg">
+                                    </li>
+                                    <li>    
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault7">
+                                            <label class="form-check-label" for="flexRadioDefault7">
+                                                Pay With Stripe
+                                            </label>
+                                        </div>
+                                        <img src="assets/img/pay_6.svg">
+                                    </li>
+                                </ul>
+                            </form>
+                            <div class="membership_ft_btn">
+                                <div class="d-flex text-start">
+                                    <button type="button" id="back_button" class="btn btn-link" onclick="back()">Back</button>
+                                    <button type="button" id="next_button" class="btn cta ms-auto">Confirm</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="reservation_right">
+                        <h4>Pricing Details</h4>
+                        <ul>
+                            <li>First Month Rent <span>$19.00</span></li>
+                            <li><p><img src="assets/img/frist_pri.svg" alt=""> $1 first month rent</p> <strong>$1.00</strong></li>
+                            <li>One-time administration fee <span>$29.00</span></li>
+                            <li><strong>One-time administration fee</strong> <strong>$30.00</strong></li>
+                        </ul>
+                    </div>
+                    <ul class="reservation_list">
+                        <li><img src="assets/img/list_icons.png" alt=""> No obligation to rent</li>
+                        <li><img src="assets/img/list_icons.png" alt=""> No credit card required</li>
+                        <li><img src="assets/img/list_icons.png" alt=""> All rentals month to month</li>
+                        <li><img src="assets/img/list_icons.png" alt=""> LOCK in this rate</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="main_footer">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-lg-4">
+                    <div class="footer_logo">
+                        <a href="">
+                            <img src="assets/img/Trade Storage.png" alt="" />
+                        </a>
+                        <div class="footer_sty">
+                            <p>STAY TUNED TO Trade Storage</p>
+                            <ul class="social_links d-flex align-items-center gap-3">
+                                <li>
+                                    <a href=""><img src="assets/img/facebook-white.png" alt="" /></a>
+                                </li>
+                                <li>
+                                    <a href=""><img src="assets/img/instagram-white.png" alt="" /></a>
+                                </li>
+                                <li>
+                                    <a href=""><img src="assets/img/pintrest-white.png" alt="" /></a>
+                                </li>
+                                <li>
+                                    <a href=""><img src="assets/img/linkedin.png" alt="" /></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="foter_links">
+                        <h2 class="quick_link">Storage Types</h2>
+                        <ul>
+                            <li>
+                                <a href="">Self Storage Facilities </a>
+                            </li>
+                            <li>
+                                <a href="">Business Storage </a>
+                            </li>
+                            <li>
+                                <a href="">Car and RV Storage </a>
+                            </li>
+                            <li>
+                                <a href="">Boat Storage </a>
+                            </li>
+                            <li>
+                                <a href="">Climate Controlled Storage</a>
+                            </li>
+                            <li>
+                                <a href="">Office Storage</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="foter_links">
+                        <h2 class="quick_link">Support</h2>
+                        <ul>
+                            <li>
+                                <a href="">Contact </a>
+                            </li>
+                            <li>
+                                <a href="">Help Center </a>
+                            </li>
+                            <li>
+                                <a href="">Size Guide </a>
+                            </li>
+                            <li>
+                                <a href="">Trade Storage Blog </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="fotter_adress">
+                        <div class="foter_links">
+                            <h2 class="quick_link">Address</h2>
+                            <div class="adress">
+                                <p>
+                                    1023 Shallowford Rd, Marietta, GA <br />
+                                    30066
+                                </p>
+                            </div>
+                        </div>
+                        <div class="foter_links foter_adrs">
+                            <h2 class="quick_link">EMAIL</h2>
+                            <div class="adress">
+                                <a href="mailto:info@tradestorage.com">info@tradestorage.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copy_right">
+            <p>Copyright ©2024 Trade Storage.</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        var current = 0;
+        var tabs = $(".tab");
+        var tabs_pill = $(".tab-pills");
+
+        loadFormData(current);
+
+        function loadFormData(n) {
+            $(tabs_pill[n]).addClass("active");
+            $(tabs[n]).removeClass("d-none");
+            $("#back_button").attr("disabled", n == 0 ? true : false);
+            n == tabs.length - 1
+            ? $("#next_button").text("Submit").removeAttr("onclick")
+            : $("#next_button")
+            .attr("type", "button")
+            .attr("onclick", "next()");
+        }
+
+        function next() {
+            $(tabs[current]).addClass("d-none");
+            $(tabs_pill[current]).removeClass("active");
+
+            current++;
+            loadFormData(current);
+        }   
+
+        function back() {
+            $(tabs[current]).addClass("d-none");
+            $(tabs_pill[current]).removeClass("active");
+
+            current--;
+            loadFormData(current);
+        }
+    </script>
+
+</body>
+</html>

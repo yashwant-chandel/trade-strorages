@@ -1,12 +1,13 @@
 @extends('front_layout.master')
 @section('content')
+
 <section class="banner_wrapper" style="background-image: url({{ asset('Trade_Storage/assets/img/banner_1.png') }});">
         <div class="container">
             <div class="banner_content">
-                <h2>Self Storage Facilities</h2>
+                <h1>Self Storage Facilities</h1>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="search-form" placeholder="Enter City, State or Zip " aria-describedby="basic-addon2">
-                    <span class="input-group-text" id="basic-addon2">Search</span>
+                    <input type="text" class="form-control search_input_val" placeholder="Enter City, State or Zip " id="search-form" aria-describedby="basic-addon2">
+                    <span class="input-group-text search_banner_btn" id="basic-addon2">Search</span>
                 </div>
             </div>
         </div>
@@ -15,9 +16,9 @@
     <section class="need_wrapper p_100">
         <div class="container">
             <div class="need_content">
-                <h4>
+                <h2>
                     Sometimes you just need a little more space. At Public Storage, we help you make room for what matters most.
-                </h4>
+                </h2>
                 <div class="need_grid">
                     <div class="need_text">
                         <img src="{{ asset('Trade_Storage/assets/img/icons_1.png') }}">
@@ -52,7 +53,7 @@
         </div>
     </section>
 
-    <section class="self_wrapper p_100" style="background-image: url({{ asset('Trade_Storage//assets/img/self.png') }});">
+    <section class="self_wrapper p_100" style="background-image: url({{ asset('Trade_Storage/assets/img/self.png') }});">
         <div class="container">
             <div class="self_content">
                 <h3>SELF STORAGE <span>SOLUTIONS</span></h3>
@@ -118,7 +119,7 @@
     <section class="most_wrapper p_100 pt-0">
         <div class="container">
             <div class="most_content"> 
-                <h3>Get The Most Out of Self-Storage</h3>
+                <h2>Get The Most Out of Self-Storage</h2>
                 <ul>
                     <li><img src="{{ asset('Trade_Storage/assets/img/list_icons.png') }}"> Label those boxes</li>
                     <li><img src="{{ asset('Trade_Storage/assets/img/list_icons.png') }}"> Plan your storage space</li>
@@ -141,7 +142,7 @@
                 </h2>
             </div>
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-lg-4">
                     <div class="self_box">
                         <div class="self_img">
                             <img src="{{ asset('Trade_Storage/assets/img/soo1.png') }}" alt="" />
@@ -152,7 +153,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-4">
                     <div class="self_box">
                         <div class="self_img">
                             <img src="{{ asset('Trade_Storage/assets/img/self2.png') }}" alt="" />
@@ -163,7 +164,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-lg-4">
                     <div class="self_box">
                         <div class="self_img">
                             <img src="{{ asset('Trade_Storage/assets/img/self3.png') }}" alt="" />
