@@ -97,14 +97,16 @@ $(".custom-option:first-of-type").hover(
         $(this).parents(".custom-options").removeClass("option-hover");
     }
     );
-$(".custom-select-trigger").on("click", function () {
+// $(".custom-select-trigger").on("click", function () {
+    $("body").delegate(".custom-select-trigger","click",function(){
     $("html").one("click", function () {
         $(".custom-select").removeClass("opened");
     });
     $(this).parents(".custom-select").toggleClass("opened");
     event.stopPropagation();
 });
-$(".custom-option").on("click", function () {
+$("body").delegate(".custom-option","click",function(){
+// $(".custom-option").on("click", function () {
     $(this).parents(".custom-select-wrapper").find("select").val($(this).data("value"));
     $(this).parents(".custom-options").find(".custom-option").removeClass("selection");
     $(this).addClass("selection");
@@ -192,8 +194,8 @@ function loadFormData(n) {
     n == tabs.length - 1
     ? $("#next_button").text("Submit").removeAttr("onclick")
     : $("#next_button")
-    .attr("type", "button")
-    .attr("onclick", "next()");
+    .attr("type", "button");
+    // .attr("onclick", "next()");
 }
 
 function next() {

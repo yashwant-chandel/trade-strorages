@@ -151,7 +151,7 @@
                                                 <img src="{{ asset('Trade_Storage/assets/img/rent_img.png') }}" alt="" />
                                             </li>
                                             <li class="obligation">
-                                                <button>Hold Now</button>
+                                                <button class="hold-now" storage-id="{{ $storage->id ?? '' }}">Hold Now</button>
                                                 <p>No Obligation</p>
                                             </li>
                                         </ol>
@@ -439,7 +439,7 @@
                                                 <img src="{{ asset('Trade_Storage/assets/img/rent_img.png') }}" alt="" />
                                             </li>
                                             <li class="obligation">
-                                                <button>Hold Now</button>
+                                                <button class="hold-now" storage-id="${val.id}">Hold Now</button>
                                                 <p>No Obligation</p>
                                             </li>
                                         </ol>

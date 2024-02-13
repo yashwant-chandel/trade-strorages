@@ -38,7 +38,7 @@
                         <img src="{{ asset('Trade_Storage/assets/img/icons_3.png') }}">
                         <h5>Make Room for a New Addition to the Family</h5>
                         <p>
-                            t is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.
+                            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.
                         </p>
                     </div>
                     <div class="need_text">

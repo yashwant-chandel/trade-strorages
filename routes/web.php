@@ -53,6 +53,9 @@ Route::post('stripe/webhook',[StripeWebhookController::class,'index']);
 
 Route::get('/reservation',[ReservationController::class,'index']);
 Route::get('/confirmation',[ReservationController::class,'confirmation']);
+Route::post('/getStorageData',[ReservationController::class,'getStorageData']);
+
+Route::post('/paymentProcc',[ReservationController::class,'paymentProcc']);
 
 ///blog
 Route::get('blogs/{slug?}',[FrontBlogController::class,'index']);

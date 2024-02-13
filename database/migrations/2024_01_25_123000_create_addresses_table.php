@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->string('address');
+            $table->string('address2')->nullable();
             $table->string('city');
             $table->string('state');
             $table->string('pincode');
+            $table->string('country')->nullable();
             $table->string('full_address');
             $table->integer('status')->default(1);
             $table->timestamps();

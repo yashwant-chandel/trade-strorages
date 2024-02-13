@@ -153,7 +153,7 @@ if(isset($_GET['location'])){
                                         <img src="{{ asset('Trade_Storage/assets/img/rent_img.png') }}" alt="" />
                                     </li>
                                     <li class="obligation">
-                                        <button>Hold Now</button>
+                                        <button class="hold-now" storage-id="{{ $storages->id ?? '' }}">Hold Now</button>
                                         <p>No Obligation</p>
                                     </li>
                                     </ol>
@@ -365,7 +365,7 @@ if(isset($_GET['location'])){
                                                     <img src="{{ asset('Trade_Storage/assets/img/rent_img.png') }}" alt="" />
                                                   </li> 
                                                   <li class="obligation">
-                                                    <button>Hold Now</button>
+                                                    <button class="hold-now" storage-id="${value1.id}">Hold Now</button>
                                                     <p>No Obligation</p>
                                                   </li>
                                                 </ol>
@@ -377,7 +377,7 @@ if(isset($_GET['location'])){
                           if(value.storages.length > 3){
                             extra_div = `<div class="view_units">
                                                 <img src="" alt="" />
-                                                <a class="view_all_btn" data-id ="${value.id}" href=""
+                                                <a class="view_all_btn" data-id="${value.id}" href=""
                                                   ><span>+</span> View all units at this location</a
                                                 >
                                               </div>`

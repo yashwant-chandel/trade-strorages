@@ -160,5 +160,48 @@
             </div>
         </div>
     </section>
+    <script>
+        $(document).ready(function(){
+            $("body").delegate('.custom-option','click',function(){
+            // $('.custom-option').click(function(){
+               parent = $(this).parent().parent().parent().parent();
+                select_type = parent.attr('select-type');
+            if(select_type == 'storage_type'){
+                value = $(this).attr('data-value');
+                $.ajax({
+                    method:'post',
+                    url:"{{ url('getSizes') }}",
+                    data: { _token:"{{ csrf_token() }}",value:value },
+                    success:function(response){
+                        // console.log(response);
+                       options ='';
+                       span_options ='';
+                      
+                        $.each(response,function(key,value){
+                            options +=  `<option value="${value.slug}">${value.name}</option>`;
+                            span_options += `<span class="custom-option undefined" data-value="${value.slug}">${value.name}</span>`;
+                        })
+                        html = `<div class="custom-select-wrapper">
+                                <select name="sizes" id="sizes" class="custom-select sources" placeholder="Select" style="display: none;">
+                                ${options}
+                                </select>
+                            <div class="custom-select sources">
+                            <span class="custom-select-trigger">Select</span>
+                                <div class="custom-options">
+                                ${span_options}
+                                </div>
+                            </div>
+                            </div><label for="potencial">Sizes</label>`;
+                            $('.office_slec3').html(html);
+
+                    }
+                })
+            }else if(select_type == 'sizes'){
+                console.log($('#storage_type').val());
+            }                
+            })
+        })
+    </script>
+
 
 @endsection

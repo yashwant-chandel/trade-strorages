@@ -15,4 +15,7 @@ class Storage extends Model
     public function size(){
         return $this->hasOne(Sizes::class,'id','size_id');
     }
+    public function propertie(){
+        return $this->hasOne(Propertie::class,'id','propertie_id');
+    }
 }

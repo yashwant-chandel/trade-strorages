@@ -14,6 +14,12 @@ use App\Models\Feature;
 class FrontHomeController extends Controller
 {
    public function index(){
+      $stripe = new \Stripe\StripeClient( env('STRIPE_SECRET_KEY') );
+      $invoice = $stripe->invoices->retrieve(
+       'in_1OjLURSHFLlPQCJ7RRVCJRP8',
+        []
+      );
+      dd($invoice);
       $homecontent = HomeContent::where('status',1)->first();
       $storage_types = Category::where('status',1)->get();
 

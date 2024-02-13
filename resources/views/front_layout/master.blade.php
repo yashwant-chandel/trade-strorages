@@ -182,15 +182,37 @@
             <p>Copyright ©2024 Trade Storage.</p>
         </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
     <script>
         $(document).ready(function(){
             $('.search_banner_btn').on('click',function(){
                 search_value = $('.search_input_val').val();
                 location.href = "{{ url('storage-search?location=') }}"+search_value;
+            });
+            $("body").delegate('.hold-now','click',function(){
+                val = $(this).attr('storage-id');
+                $.ajax({
+                    method:"post",
+                    url: "{{ url('getStorageData') }}",
+                    data: { _token:"{{ csrf_token() }}",id:val },
+                    success:function(response){
+                        if(response.error){
+                            console.log(response.error);
+                        }else{
+                            datatoencrypt = response.success;
+                            var jsonString = JSON.stringify(datatoencrypt);
+                            var encrypted = CryptoJS.AES.encrypt(jsonString, 'secret');
+                            encryptedString = encrypted.toString();
+                            localStorage.setItem('ssc12',encryptedString);
+                            location.href = "{{ url('reservation') }}";
+
+                            
+                        }
+                    }
+                })
             })
         });
     </script>
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="{{ asset('Trade_Storage/assets/js/main.js') }}"></script>
